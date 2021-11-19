@@ -1,4 +1,4 @@
-# bot-store-client
+# gumcheongu front_end
 금천구 시설관리공단 Vue.js Front-End
 
 ## Project setup
