@@ -11,7 +11,7 @@
        
      
       <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(userId, userPwd)">
-        <div style="margin-bottom:39px;display:inline-block">
+        <div style="width:230px; margin-bottom:39px;display:inline-block">
           <v-text-field
            
             placeholder="아이디를 입력해주세요"
