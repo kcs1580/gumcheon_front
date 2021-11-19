@@ -1,0 +1,10 @@
+{
+  "message": "hello",
+  "nav": {
+    "botstore": "BOT STORE",
+    "smartworker": "SMARTWORKER",
+    "community": "COMMUNITY",
+    "education": "EDUCATION",
+    "archive": "ARCHIEVE"
+  }
+}
