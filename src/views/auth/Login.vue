@@ -2,7 +2,7 @@
   <!-- 로그인 페이지 -->  
   <div style="text-align:center">
   <v-card flat width="375px" >
-     <div style="width:200px; display:inline-block" >
+     <div style="width:239px; display:inline-block" >
     <v-img         
               src="@/assets/img/gfmc_ci.svg" 
             />
@@ -11,7 +11,7 @@
        
      
       <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(userId, userPwd)">
-        <div style="width:230px; margin-bottom:39px;display:inline-block">
+        <div style="width:265px; margin-bottom:39px;display:inline-block">
           <v-text-field
            
             placeholder="아이디를 입력해주세요"
@@ -36,8 +36,8 @@
           <v-btn
         @click="login(userId, userPwd)"
        rounded
-        height="42"
-        width="230"
+        height="52"
+        width="283"
         color="#0276F9
 "
         ><div class="login-btn white--text">로그인</div></v-btn
@@ -53,8 +53,8 @@
              <v-btn
         @click="$router.push('/register')"
        rounded
-        height="42"
-        width="230"
+        height="52"
+        width="283"
         color="#0276F9
 " outlined
         ><div class="login-btn">회원가입</div></v-btn
@@ -120,7 +120,7 @@ export default {
   border-radius: 12px;
 }
 .find-btn{
-  font-size: 10px;
+  font-size: 13px;
   font-style: none;
 color: #313640;
 margin: 14px;
