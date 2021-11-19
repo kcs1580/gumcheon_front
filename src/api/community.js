@@ -50,7 +50,7 @@ export default {
   //커뮤니티 게시판 리스트 조회 criteria:조건
   listCommunity(criteria) {
     return api({
-      url: `v1/board/community/list`,
+      url: `/cop/bbs/selectArticleList.do`,
       method: "post",
       data: criteria
     });

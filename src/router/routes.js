@@ -1,6 +1,6 @@
 // 유저
 import serve from "../views/layout/serve.vue";
-import community from "../views/user/community.vue";
+import notice from "../views/user/notice.vue";
 import auth from "../views/layout/auth.vue";
 import store from "@/store";
 
@@ -8,20 +8,20 @@ import store from "@/store";
 const main = () =>
   import(/* webpackChunkName: "main" */ "../views/user/main.vue");
 //커뮤니티 리스트
-const communityList = () =>
-  import(/* webpackChunkName: "community" */ "../views/user/communityList.vue");
+const noticeList = () =>
+  import(/* webpackChunkName: "community" */ "../views/user/noticeList.vue");
 //커뮤니티 상세
-const communityDetail = () =>
+const noticeDetail = () =>
   import(
-    /* webpackChunkName: "community" */ "../views/user/communityDetail.vue"
+    /* webpackChunkName: "community" */ "../views/user/noticeDetail.vue"
   );
 //커뮤니티 수정
-const communityEdit = () =>
-  import(/* webpackChunkName: "community" */ "../views/user/communityEdit.vue");
+const noticeEdit = () =>
+  import(/* webpackChunkName: "community" */ "../views/user/noticeEdit.vue");
 //커뮤니티 등록
-const communityRegister = () =>
+const noticeRegister = () =>
   import(
-    /* webpackChunkName: "community" */ "../views/user/communityRegister.vue"
+    /* webpackChunkName: "community" */ "../views/user/noticeRegister.vue"
   );
 //로그인
 const login = () => import(/* */ "../views/auth/Login.vue");
@@ -73,34 +73,34 @@ const routes = [
      ,
       {
         //커뮤니티
-        path: "/community",
-        component: community,
+        path: "/notice",
+        component: notice,
         children: [
           {
             //커뮤니티 목록
             path: "",
-            component: communityList,
-            name: "communityList"
+            component: noticeList,
+            name: "noticeList"
           },
           {
             //커뮤니티 등록
-            path: "/writecommunity",
-            component: communityRegister,
-            name: "communityRegister",
-            beforeEnter: requireAuth()
+            path: "/writenotice",
+            component: noticeRegister,
+            name: "noticeRegister",
+           // beforeEnter: requireAuth()
           },
           {
             //커뮤니티 상세
             path: ":id",
-            component: communityDetail,
-            name: "communityDetail"
+            component: noticeDetail,
+            name: "noticeDetail"
           },
           {
             //커뮤니티 수정
             path: ":id/modify",
-            component: communityEdit,
-            name: "communityEdit",
-            beforeEnter: requireAuth()
+            component: noticeEdit,
+            name: "noticeEdit",
+           // beforeEnter: requireAuth()
           }
         ]
       },

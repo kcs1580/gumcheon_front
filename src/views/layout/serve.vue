@@ -21,9 +21,7 @@ export default {
     };
   },
   computed: {
-    parentBotList() {
-      return this.$store.getters.getBotList;
-    }
+    
   },
   created() {}
 };

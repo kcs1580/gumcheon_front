@@ -217,7 +217,7 @@ export default new Vuex.Store({
       state.currentpage = 1;
     },
     //커뮤니티 검색 조건 초기화
-    INIT_COMMUNITY(state) {
+    INIT_NOTICE(state) {
       state.cmsearchValue = "";
       state.cmsearchBy = "TITLE";
       state.cmorderBy = "RECENT";

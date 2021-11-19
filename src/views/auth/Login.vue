@@ -1,92 +1,71 @@
 <template>
-  <!-- 로그인 페이지 -->
-  <v-card rounded="xl" width="400">
-    <v-card-text>
-      <p class="black--text login-title text-center">
-        {{ $t("nav.login") }}
-      </p>
-      <p class="login-message text-center mt-10">
-        이메일과 비밀번호를 <br />
-        입력해주세요
-      </p>
-      <div @keydown.enter="login(userId, userPwd)">
-        <v-col class="pl-7 pr-7 mb-7">
+  <!-- 로그인 페이지 -->  
+  <div style="text-align:center">
+  <v-card flat width="375px" >
+     <div style="width:200px; display:inline-block" >
+    <v-img         
+              src="@/assets/img/gfmc_ci.svg" 
+            />
+   
+     </div>
+       
+     
+      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(userId, userPwd)">
+        <div style="margin-bottom:39px;display:inline-block">
           <v-text-field
-            autofocus
-            dense
-            placeholder="이메일 입력"
-            class="mb-1 email-input"
-            hide-details
-            outlined
+           
+            placeholder="아이디를 입력해주세요"
+           
+          hide-details
+           
             v-model="userId"
           />
           <v-text-field
             clearable
-            dense
-            placeholder="비밀번호 입력"
-            hide-details
-            outlined
+                     hide-details
+
+            placeholder="비밀번호를 입력해주세요"
+           
             v-model="userPwd"
             type="password"
           />
-        </v-col>
-        <!-- 소셜 로그인 -->
-        <!-- <v-col cols="12">
-          <v-row justify="space-around">
-            <a
-              href="http://www.timebees.net/oauth2/authorize/google?redirect_uri=http://www.timebees.net/social-auth"
-            >
-              <img
-                height="36px"
-                src="@/assets/img/oauth/btn_google_signin_dark_normal.png"
-              />
-            </a>
-            <a
-              href="http://www.timebees.net/oauth2/authorize/kakao?redirect_uri=http://www.timebees.net/social-auth"
-            >
-              <img
-                height="36px"
-                src="@/assets/img/oauth/kakao_login_large_narrow.png"
-              /> </a
-          ></v-row>
-        </v-col> -->
+        </div>
+        
 
-        <v-col cols="12">
-          <v-row justify="space-around" class="mt-3">
-            <div>
-              <v-btn @click="undone()" text
-                ><v-icon> mdi-magnify </v-icon>비밀번호 찾기</v-btn
-              >|<v-btn @click="$router.push('/register')" text
-                ><v-icon>mdi-account-outline</v-icon>회원가입</v-btn
+       
+          <v-btn
+        @click="login(userId, userPwd)"
+       rounded
+        height="42"
+        width="230"
+        color="#0276F9
+"
+        ><div class="login-btn white--text">로그인</div></v-btn
+      >           <div style="display:inline-block">
+           
+              <a class="find-btn" @click="undone()" 
+                >아이디 찾기</a
+              >|<a class="find-btn" @click="undone()"  
+                >비밀번호 찾기</a
               >
-            </div>
-          </v-row>
-        </v-col>
+     
+       </div>
+             <v-btn
+        @click="$router.push('/register')"
+       rounded
+        height="42"
+        width="230"
+        color="#0276F9
+" outlined
+        ><div class="login-btn">회원가입</div></v-btn
+      >
+         
       </div>
 
       {{ msg }}
-    </v-card-text>
+      </v-card>
+  </div>
 
-    <!-- 하단 버튼 -->
-    <v-card-actions class="justify-center mb-n2">
-      <v-btn
-        @click="$router.go(-1)"
-        class="rounded-bl-xl"
-        height="60"
-        width="200"
-        color="#999999"
-        ><div class="login-btn white--text">취소</div></v-btn
-      >
-      <v-btn
-        @click="login(userId, userPwd)"
-        class="rounded-br-xl"
-        height="60"
-        width="200"
-        color="#081157"
-        ><div class="login-btn white--text">로그인</div></v-btn
-      >
-    </v-card-actions>
-  </v-card>
 </template>
 
 <script>
@@ -112,7 +91,7 @@ export default {
           this.$router.go(-1);
         })
         .catch(error => {
-          this.msg = error.response.data.message;
+          console.log(error);
         });
     }
   }
@@ -135,10 +114,16 @@ export default {
 }
 
 .login-btn {
-  font-size: 19px;
+  font-size: 18px;
 }
 .v-btn {
-  border-radius: 0px;
+  border-radius: 12px;
+}
+.find-btn{
+  font-size: 10px;
+  font-style: none;
+color: #313640;
+margin: 14px;
 }
 
 .v-application--is-ltr .v-card__actions > .v-btn.v-btn + .v-btn {

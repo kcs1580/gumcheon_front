@@ -13,7 +13,7 @@
           <div class="title" @click="gotoUrl('/')">
             <v-img width="235px"            
               src="@/assets/img/gfmc_ci.png"
-              @load="onImgLoad"
+              
             />
           </div>
           <!-- 네비게이션 메뉴 -->
@@ -22,7 +22,7 @@
             v-for="(item, i) in menus"
             :key="i"
           >
-            <div v-if="isLoaded" class="menu-btn" @click="gotoUrl(item.link)">
+            <div class="menu-btn" @click="gotoUrl(item.link)">
               {{ item.title }}
             </div>
           </div>
@@ -158,7 +158,7 @@ export default {
         { title: "불편접수", link: "/" },
         { title: "내 정보관리", link: "/" },
         { title: "접수 및 처리 현황", link: "/" },
-        { title: "공지사항", link: "/community" },
+        { title: "공지사항", link: "/notice" },
       ]
     };
   },
