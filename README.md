@@ -1,5 +1,5 @@
 # bot-store-client
-레인보우브레인 봇 스토어 Vue.js Front-End
+금천구 시설관리공단 Vue.js Front-End
 
 ## Project setup
 ```
