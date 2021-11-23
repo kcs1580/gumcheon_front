@@ -1,261 +1,77 @@
 <template>
-  <v-layout
-    class="d-flex justify-center"
-    style="margin-top: -150px; margin-bottom:100px;"
-  >
+  
     <v-container
-      v-if="list"
-      class="edu-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
+     
+      
     >
-      <v-row>
-        <span class="edu-title"> {{ $t("nav.community") }} </span>
-      </v-row>
-      <v-card-title class="search-bar-frame">
-        <div class="counter-text">
-          <b>{{ this.listsize }}</b
-          >{{ $t("community.searchcases") }}
-        </div>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-        <v-select
-          class="search-bar-datatable combobox"
-          @change="changesearchBy"
-          :items="searchitems"
-          v-model="searchBy"
-          label="Solo field"
-          solo
-          height="40"
-        ></v-select>
-        <v-text-field
-          dense
-          class="search-bar-datatable "
-          v-model="searchTemp"
-          solo
-          :label="$t('searchlabel')"
-          append-icon="mdi-magnify"
-          height="40"
-          @click:append="clickHandler"
-          @keyup.enter.prevent="clickHandler"
-        ></v-text-field>
-        <v-select
-          @change="changeorderBy"
-          class="search-bar-datatable combobox"
-          :items="items"
-          label="Solo field"
-          v-model="orderBy"
-          solo
-          height="40"
-        ></v-select>
-        <button
-          class="request-btn d-flex align-center justify-center rounded"
-          @click="gotoRegister"
-        >
-          {{ $t("community.registerbtn") }}
-        </button>
-        <div v-if="$store.getters.authStatus == 'success'">
-          <button
-            v-if="!ismyboard"
-            class="request-btn d-flex align-center justify-center rounded"
-            @click="viewMyBoard"
-          >
-            {{ $t("community.myboard") }}
-          </button>
-          <button
-            v-else
-            class="request-btn d-flex align-center justify-center rounded"
-            @click="viewAllBoard"
-          >
-            {{ $t("community.allboard") }}
-          </button>
-        </div>
-      </v-card-title>
+    <v-row>
+      <v-col>
+        <v-data-table
+    :headers="headers"
+    :items="boardList"
+    :items-per-page="5"
+    class="elevation-1"       @click:row="handleClick"
 
-      <v-row justify="center" class="edu-datatable">
-        <DataTable :communityList.sync="list" :listsize.sync="listsize" />
-      </v-row>
-      <v-row justify="center" class="edu-pagenation">
-        <Pagination />
-      </v-row>
+  >
+  
+  
+  </v-data-table>
+      </v-col>
+    </v-row>
+      
     </v-container>
-  </v-layout>
+
 </template>
 
 <script>
-// import Button from '@/components/Button.vue'
-import DataTable from "@/components/DataTable.vue";
-import Pagination from "@/components/Pagination.vue";
+
 import communityApi from "@/api/community.js";
 
 export default {
   name: "Home",
   data: () => ({
-    scope: "",
-    searchTemp: "",
-    searchMode: false,
-    orderBy: "RECENT",
-    searchBy: "TITLE",
-    totalLength: "",
-    itemCnt: "",
-    ismyboard: false,
-    searchBy: "TITLE",
-    searchValue: "",
-    errored: false,
-    list: null,
-    listsize: 0,
-    page: 1,
-    pageCount: 0,
-    itemsPerPage: 10,
-    sort: "최신순",
-    board: { searchValue: "" },
-    items: [
-      { text: "최신순", value: "RECENT" },
-      { text: "좋아요순", value: "LIKE" },
-      { text: "댓글순", value: "REPLY" },
-      { text: "조회순", value: "VISIT" }
-    ],
-    searchitems: [
-      { text: "제목", value: "TITLE" },
-      { text: "내용", value: "CONTENT" },
-      { text: "작성자", value: "CREATOR" }
-    ],
+   
     headers: [
       {
         text: "글번호",
         align: "left",
-        value: "id"
+        value: "idx"
       },
       { text: "제목", value: "title" },
-      { text: "댓글수", value: "calories" },
-      { text: "좋아요", value: "likeCnt" },
-      { text: "조회수", value: "visitCnt" },
-      { text: "작성일", value: "createdDate" },
-      { text: "작성자", value: "createdByNm" }
-      // { text: "Actions", value: "actions", sortable: false }
-    ]
-  }),
-  components: { DataTable, Pagination },
-  methods: {
-    changesearchBy() {
-      this.$store.commit("SET_CMSEARCHBY", this.searchBy);
-    },
-    changsesearchValue() {
-      this.$store.commit("SET_CMSEARCHVALUE", this.searchValue);
-    },
-    changeorderBy() {
-      this.$store.commit("SET_CMORDERBY", this.orderBy);
-      this.searchCommunity();
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
-    },
-    currentPage(data) {
-      this.page = data;
-    },
-    viewMyBoard() {
-      this.ismyboard = true;
-      this.scope = "PRIVATE";
-      this.$store.commit("SET_CURRENTPAGE", 1);
-      this.listCommunity();
-    },
-    viewAllBoard() {
-      this.ismyboard = false;
-      this.scope = "";
-      this.$store.commit("SET_CURRENTPAGE", 1);
-      this.listCommunity();
-    },
-    gotoRegister() {
-      if (this.$store.getters.authStatus == "success")
-        this.$router.push("/writecommunity");
-      else {
-        if (confirm("로그인이 필요합니다.")) {
-          this.$router.push({ name: "login" });
-        }
-      }
-    },
-    listCommunity() {
-      this.$store.commit("SET_CURRENTPAGE", 1);
-      this.startId = this.itemsPerPage * (this.page - 1);
-      if (this.searchMode) {
-        this.searchCommunity();
-      } else {
-        communityApi
-          .listCommunity({
-            orderBy: this.orderBy,
-            itemCnt: this.itemsPerPage,
-            startId: this.startId,
-            searchValue: this.searchValue,
-            searchBy: this.searchBy,
-            scope: this.scope
-          })
-          .then(({ data }) => {
-            this.list = data.list;
-            this.listsize = data.total;
-            this.totalLength = Math.ceil(this.listsize / 10);
-            this.scrollToTop();
-            this.$store.commit("SET_TOTALLENGTH", this.totalLength);
-          })
-          .catch(res => {
-            console.log(res);
-          });
-      }
-    },
-    clickHandler() {
-      this.$store.commit("SET_CURRENTPAGE", 1);
-      this.$store.commit("SET_CMSEARCHVALUE", this.searchTemp);
-      this.searchCommunity();
-    },
-    searchCommunity() {
-      //this.ismyboard = false;
-      this.searchValue = this.$store.getters.getcmsearchValue;
-      this.orderBy = this.$store.getters.getcmorderBy;
-      this.searchBy = this.$store.getters.getcmsearchBy;
-      this.startId = this.itemsPerPage * (this.page - 1);
+    
+          { text: "작성자", value: "writer" },
 
-      //this.changsesearchValue();
-      if (this.searchValue.length < 2 && this.searchValue.length > 0)
-        alert("2글자 이상 입력해 주세요.");
-      else {
-        if (this.searchValue.length > 1) this.searchMode = true;
-        else this.searchMode = false;
+      { text: "수정일", value: "updatedate" },
+        { text: "조회수", value: "viewcnt" }
+      // { text: "Actions", value: "actions", sortable: false }
+    ],
+    boardList: [],
+  }),
+  methods: {
+     listBoard() {      
+
         communityApi
-          .listCommunity({
-            orderBy: this.orderBy,
-            searchBy: this.searchBy,
-            searchValue: this.searchValue,
-            itemCnt: this.itemsPerPage,
-            startId: this.startId,
-            scope: this.scope
-          })
+          .listCommunity()
           .then(({ data }) => {
-            this.list = data.list;
-            this.listsize = data.total;
-            this.totalLength = Math.ceil(this.listsize / 10);
-            this.$store.commit("SET_TOTALLENGTH", this.totalLength);
-            this.searchTemp = this.$store.getters.getcmsearchValue;
-          })
+this.boardList = data;          })
           .catch(res => {
             console.log(res);
           });
       }
+    ,
+
+
+    communityDetail(idx) {
+      this.$router.push("/notice/" + idx);
     },
-    communityDetail(id) {
-      this.$router.push("/community/" + id);
-    },
-    handleClick(id) {
-      this.communityDetail(id);
+    handleClick(value) {
+      this.communityDetail(value.idx);
     }
   },
   created() {
-    this.page = this.$store.getters.getcurrentpage;
-    this.searchCommunity();
-  },
+this.listBoard();  },
   mounted() {},
-  watch: {
-    "$store.state.currentpage": function() {
-      this.page = this.$store.getters.getcurrentpage;
-      this.searchCommunity();
-    }
-  }
+  
 };
 </script>
 

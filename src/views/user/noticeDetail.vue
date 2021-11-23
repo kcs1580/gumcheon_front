@@ -4,7 +4,7 @@
     style="margin-top: -150px; margin-bottom:100px;"
   >
     <v-container
-      v-if="isLoading == 0"
+      
       class="community-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
     >
       <v-row>
@@ -13,97 +13,27 @@
 
       <v-col cols="12" class="community-view-contents">
         <v-row class="view-contents-title">
-          <v-col>
-            <div class="contents-title-main" style="margin-top:8px;">
-              {{ this.board.title }}
-
-              <!-- 좋아요 아이콘 -->
-              <span class="ml-3">
-                <v-chip
-                  text-color="#0000000"
-                  outlined
-                  v-if="!liked"
-                  @click="like(`Y`)"
-                  ><v-icon small color="red">mdi-heart-outline</v-icon
-                  >{{ board.likeCnt }}</v-chip
-                ><v-chip outlined v-else @click="like(`N`)"
-                  ><v-icon small color="red">mdi-heart</v-icon
-                  >{{ board.likeCnt }}</v-chip
-                >
-              </span>
-            </div>
-          </v-col>
+        <v-col>{{this.board.title}}</v-col>
           <v-col
             cols="2"
             class="d-flex align-end flex-column contents-title-sub"
           >
             <div>
-              {{ this.board.createdByNm }} |
-              {{ $moment(this.board.createdDate).format("YYYY-MM-DD") }}
+              {{ this.board.writer }} |
+              {{ $moment(this.board.updatedate).format("YYYY-MM-DD") }}
             </div>
             <div>
-              좋아요 {{ this.board.likeCnt }} | 조회수 {{ this.board.visitCnt }}
+             조회수 {{ this.board.viewcnt }}
             </div>
           </v-col>
         </v-row>
 
         <v-row class="view-contents-content">
-          <viewer :initialValue="viewerText" />
+         <v-textarea v-model="board.content"></v-textarea>
         </v-row>
 
-        <v-col class="view-contents-replyinput">
-          <v-row class="replyinput-label" align="center">
-            댓글<b style="margin-left:3px; margin-right:3px;">
-              {{ this.replylist.length }}</b
-            >건<span
-              v-if="!$store.getters.getToken"
-              class="reply-label"
-              style="margin-left:5px;"
-              >| 로그인을 하시면 댓글을 등록할 수 있습니다.</span
-            >
-            <v-spacer></v-spacer>
-          </v-row>
-          <span v-if="$store.getters.getToken">
-            <v-row>
-              <v-textarea
-                full-width
-                class="replyinput-textarea"
-                outlined
-                no-resize
-                v-model="replytext"
-              ></v-textarea>
-            </v-row>
-            <v-row class="d-flex justify-end replyinput-btns">
-              <div @click="(replytext = ``), (isHidden = true)">
-                <Button
-                  style="margin-right:10px;"
-                  class="replyinput-btns-1"
-                  color="#B6B6B6"
-                  contents="취소"
-                  height="36"
-                  width="100"
-                />
-              </div>
-              <div @click="registerReply(replytext)">
-                <Button
-                  class="replyinput-btns-2"
-                  color="#444444"
-                  contents="등록"
-                  height="36"
-                  width="100"
-                />
-              </div>
-            </v-row>
-          </span>
-        </v-col>
 
-        <v-col class="view-contents-replyinput2" style="margin-bottom:30px;">
-          <Reply
-            :reply="replylist"
-            @updateReply="updateParentReply"
-            :board="board"
-          />
-        </v-col>
+    
       </v-col>
 
       <v-row class="community-bottom">
@@ -171,50 +101,10 @@ export default {
     };
   },
   methods: {
-    registerReply(content) {
-      if (this.replytext == "") {
-        alert("내용을 입력해주세요.");
-      } else {
-        communityApi
-          .writeReply(this.board.id, { replyContent: content })
-          .then(() => {
-            this.replytext = "";
-          })
-          .catch(res => {
-            console.log(res);
-          })
-          .finally(() => {
-            this.listReply();
-          });
-      }
-    },
-    updateParentReply(reply) {
-      this.replylist = reply;
-    },
-    listReply() {
-      communityApi
-        .listReply(this.board.id, {
-          orderBy: "RECENT"
-        })
-        .then(res => {
-          this.replylist = res.data.list;
-        })
-        .catch(res => {
-          console.log(res);
-        });
-    },
-    like(likeYn) {
-      communityApi
-        .likeCommunity(this.board.id, likeYn)
-        .then(() => {
-          this.initialize();
-        })
-        .catch(res => {
-          console.log(res.body.error);
-        });
-    },
+    
+   
     gotolist() {
-      this.$router.push("/community");
+      this.$router.push("/notice");
     },
     gotosave() {
       this.$router.push({ name: "communityEdit", params: this.board });
@@ -225,11 +115,7 @@ export default {
       communityApi
         .selectCommunity(cid)
         .then(res => {
-          this.board = res.data.board;
-          this.liked = res.data.liked;
-          this.listReply();
-          this.viewerText = this.board.content;
-          this.isLoading = 0;
+          this.board = res.data;
         })
         .catch(res => {
           console.log(res);

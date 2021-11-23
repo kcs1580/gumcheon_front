@@ -367,15 +367,16 @@ export default new Vuex.Store({
   },
   actions: {
     //로그인
-    AUTH_REQUEST({ commit }, { userId, userPwd }) {
+    AUTH_REQUEST({ commit }, { id, password }) {
       return new Promise((resolve, reject) => {
         commit("AUTH_REQUEST");
         authApi
-          .login({ userId, userPwd })
+          .login({ id, password })
           .then(resp => {
+            console.log(resp);
             const token = resp.data.token;
-            const userId = resp.data.user.userId;
-            const userNm = resp.data.user.userNm;
+            // const userId = resp.data.user.userId;
+            // const userNm = resp.data.user.userNm;
             commit("AUTH_SUCCESS", { token, userId, userNm });
             // dispatch("USER_REQUEST")
 

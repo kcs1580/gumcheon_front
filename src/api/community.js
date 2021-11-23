@@ -12,7 +12,7 @@ export default {
   //커뮤니티 게시글 조회
   selectCommunity(boardId) {
     return api({
-      url: `v1/board/community/${boardId}`,
+      url: `getBoard.do?idx=${boardId}`,
       method: "get"
     });
   },
@@ -48,11 +48,10 @@ export default {
     });
   },
   //커뮤니티 게시판 리스트 조회 criteria:조건
-  listCommunity(criteria) {
+  listCommunity() {
     return api({
-      url: `/cop/bbs/selectArticleList.do`,
-      method: "post",
-      data: criteria
+      url: `getBoards.do`,
+      method: "get",
     });
   },
 

@@ -9,11 +9,19 @@ export default {
     });
   },
   //로그인
+  // login(data) {
+  //   return api({
+  //     url: "/uat/uia/actionLogin.do",
+  //     method: "post",
+  //     data: { id: data.id, password: data.password }
+  //   });
+  // },
+
   login(data) {
     return api({
-      url: "/uat/uia/actionLogin.do",
+      url: "/user/login",
       method: "post",
-      data: { id: data.userId, password: data.userPwd }
+      data: { id: data.id, password: data.password }
     });
   },
 

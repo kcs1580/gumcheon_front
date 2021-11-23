@@ -18,7 +18,7 @@
            
           hide-details
            
-            v-model="userId"
+            v-model="id"
           />
           <v-text-field
             clearable
@@ -26,7 +26,7 @@
 
             placeholder="비밀번호를 입력해주세요"
            
-            v-model="userPwd"
+            v-model="password"
             type="password"
           />
         </div>
@@ -34,7 +34,7 @@
 
        
           <v-btn
-        @click="login(userId, userPwd)"
+        @click="login(id, password)"
        rounded
         height="52"
         width="283"
@@ -69,12 +69,11 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      userId: "",
-      userPwd: "",
+      id: "",
+      password: "",
       msg: ""
     };
   },
@@ -83,10 +82,10 @@ export default {
       alert("구현중인 기능입니다.");
     },
     //로그인
-    login(userId, userPwd) {
+    login(id, password) {
       // LOGIN 액션 실행
       this.$store
-        .dispatch("AUTH_REQUEST", { userId, userPwd })
+        .dispatch("AUTH_REQUEST", { id, password })
         .then(res => {
           this.$router.go(-1);
         })

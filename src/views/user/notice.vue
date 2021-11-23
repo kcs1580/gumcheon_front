@@ -7,7 +7,7 @@
 export default {
   beforeCreate() {
     //커뮤니티 검색조건 초기화
-    this.$store.commit("INIT_NOTICE");
+//    this.$store.commit("INIT_NOTICE");
   }
 };
 </script>
