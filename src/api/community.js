@@ -4,7 +4,7 @@ export default {
   //커뮤니티 게시글 생성
   writeCommunity(board) {
     return api({
-      url: "v1/board/community",
+      url: "v1/board",
       method: "post",
       data: board
     });
@@ -12,14 +12,14 @@ export default {
   //커뮤니티 게시글 조회
   selectCommunity(boardId) {
     return api({
-      url: `getBoard.do?idx=${boardId}`,
+      url: `v1/board/${boardId}`,
       method: "get"
     });
   },
   //커뮤니티 게시글 업데이트
   updateCommunity(boardId, board) {
     return api({
-      url: `v1/board/community/${boardId}`,
+      url: `v1/board/${boardId}`,
       method: "put",
       data: board
     });
@@ -27,30 +27,15 @@ export default {
   //커뮤니티 게시글 삭제
   deleteCommunity(boardId) {
     return api({
-      url: `v1/borad/community/${boardId}`,
+      url: `v1/board/${boardId}`,
       method: "delete"
     });
   },
-  //커뮤니티 게시글 좋아요 추가/취소
-  likeCommunity(boardId, like) {
-    return api({
-      url: `v1/board/community/${boardId}/like`,
-      method: "put",
-      data: { likeYn: like }
-    });
-  },
-  //커뮤니티 게시글 노출여부 업데이트
-  vsibleCommunity(boardId, visible) {
-    return api({
-      url: `v1/board/community/${boardId}/visible`,
-      method: "put",
-      data: { visibleYn: visible }
-    });
-  },
+  
   //커뮤니티 게시판 리스트 조회 criteria:조건
   listCommunity() {
     return api({
-      url: `getBoards.do`,
+      url: `v1/board`,
       method: "get",
     });
   },
@@ -86,20 +71,12 @@ export default {
       method: "delete"
     });
   },
-  //커뮤니티 댓글 좋아요 추가/취소
-  likeReply(replyId, like) {
+
+  //커뮤니티 조회수 증가
+  updateViewCnt(boardId){
     return api({
-      url: `v1/reply/community/${replyId}/like`,
-      mehtod: "put",
-      data: like
-    });
-  },
-  //커뮤니티 댓글 노출여부 업데이트
-  visibleReply(replyId, visible) {
-    return api({
-      url: `v1/reply/community/${replyId}/visible`,
-      method: "put",
-      data: visible
-    });
+      url: `v1/board/updateViewCnt/${boardId}`,
+      method: "get"    });
   }
+
 };

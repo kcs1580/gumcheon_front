@@ -1,26 +1,81 @@
 <template>
-  <v-layout
-    class="d-flex justify-center"
-    style="margin-top: -150px; margin-bottom:100px;"
-  >
+  
     <v-container
-      class="edu-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
+     
+      
     >
-      <v-row>
-        <span class="edu-title"> {{ $t("nav.botstore") }} </span>
-      </v-row>
+    <v-row>
+      <v-col>
+        <v-data-table
+    :headers="headers"
+    :items="boardList"
+    :items-per-page="5"
+    class="elevation-1"       @click:row="handleClick"
+
+  >
+  
+  
+  </v-data-table>
+      </v-col>
+    </v-row>
+      
     </v-container>
-  </v-layout>
+
 </template>
 
 <script>
+
+import communityApi from "@/api/community.js";
+
 export default {
-  data: () => ({}),
-  methods: {}
+  name: "Home",
+  data: () => ({
+   
+    headers: [
+      {
+        text: "글번호",
+        align: "left",
+        value: "idx"
+      },
+      { text: "제목", value: "title" },
+    
+          { text: "작성자", value: "writer" },
+
+      { text: "수정일", value: "updatedate" },
+        { text: "조회수", value: "viewcnt" }
+      // { text: "Actions", value: "actions", sortable: false }
+    ],
+    boardList: [],
+  }),
+  methods: {
+     listBoard() {      
+
+        communityApi
+          .listCommunity()
+          .then(({ data }) => {
+this.boardList = data;          })
+          .catch(res => {
+            console.log(res);
+          });
+      }
+    ,
+
+
+    communityDetail(idx) {
+      this.$router.push("/notice/" + idx);
+    },
+    handleClick(value) {
+      this.communityDetail(value.idx);
+    }
+  },
+  created() {
+this.listBoard();  },
+  mounted() {},
+  
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .search-bar-frame {
   padding-right: 0px;
   border-bottom: black solid 1px;
@@ -47,6 +102,8 @@ export default {
     background-color: #213e86;
   }
   .search-bar-datatable {
+    margin-left: 5px;
+    margin-right: 5px;
     margin-top: 10px;
     height: 40px;
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
@@ -78,7 +135,7 @@ export default {
   background-color: white;
   margin-top: 50px;
   margin-bottom: 50px;
-  max-width: 1280px;
+  max-width: 1200px;
 
   .edu-title {
     font-size: 24px;

@@ -6,12 +6,12 @@
           :key="card.title"
           :cols="card.flex"
         >
-          <v-card>
+          <v-card >
             <v-img
               :src="card.src"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
+              height="200px" @click="$router.push('/notice')"
             >
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
@@ -39,15 +39,12 @@
 
 <script>
 import { mapMutations } from "vuex";
-import Button from "@/components/Button.vue";
-import CardList from "@/components/MainCardList.vue";
-import RollingBanner from "@/components/RollingBanner.vue";
-import Search from "@/components/Search.vue";
+
 import botApi from "@/api/bot.js";
 import userApi from "@/api/user.js";
 
 export default {
-  components: { CardList, Search, RollingBanner, Button, mapMutations },
+  components: { mapMutations },
   methods: {
     //Vuex Helper Mutations
     ...mapMutations(["SET_BUSINESSCATEGORYLIST", "SET_ALLJOBCATEGORYLIST"]),
@@ -135,10 +132,7 @@ export default {
     };
   },
   created() {
-    this.getCategory();
-    this.getBotCount();
-    this.getUserCount();
-  },
+    },
   mounted() {}
 };
 </script>

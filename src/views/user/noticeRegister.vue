@@ -1,13 +1,13 @@
 <template>
   <v-layout
     class="d-flex justify-center"
-    style="margin-top: -150px; margin-bottom:100px;"
+   
   >
     <v-container
       class="community-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
     >
       <v-row>
-        <span class="community-write-title">커뮤니티</span>
+        <span class="community-write-title">공지사항</span>
       </v-row>
       <v-col class="community-write-contents">
         <v-row class="community-write-contents-line">
@@ -15,29 +15,7 @@
           <div class="d-flex align-center community-contents-input">
             {{ $store.state.userNm }}
           </div>
-        </v-row>
-        <v-row class="community-write-contents-line">
-          <div class="d-flex align-center community-contents-label">
-            노출여부
-          </div>
-          <div class="d-flex align-center community-contents-input">
-            <v-radio-group
-              :column="false"
-              v-model="board.visibleYn"
-              class="community-contents-radio"
-            >
-              <v-radio
-                :dark="false"
-                v-for="item in radio"
-                :key="item.name"
-                :label="item.name"
-                :value="item.value"
-                color="#213E86"
-                :ripple="false"
-              ></v-radio>
-            </v-radio-group>
-          </div>
-        </v-row>
+        </v-row>       
         <v-row class="community-write-contents-line">
           <div class="d-flex align-center community-contents-label">
             제목
@@ -134,31 +112,31 @@ export default {
       editorOptions: {
         hideModeSwitch: true,
         hooks: {
-          addImageBlobHook: async (blob, callback) => {
-            let formData = new FormData();
-            formData.append("multipartFile", blob);
-            return fileApi
-              .uploadFile(formData)
-              .then(resData => {
-                let imguuid = resData.data.fileList[0].uuid;
-                this.board.contentFileList.push(imguuid);
-                const uploadedURL =
-                  process.env.VUE_APP_APIBASE + "v1/files/download/" + imguuid;
-                callback(uploadedURL.toString(), "alt text");
-                return false;
-              })
-              .catch(() => {
-                console.log("UPLOAD FAILURE!!");
-              });
-          }
+          // addImageBlobHook: async (blob, callback) => {
+          //   let formData = new FormData();
+          //   formData.append("multipartFile", blob);
+          //   return fileApi
+          //     .uploadFile(formData)
+          //     .then(resData => {
+          //       let imguuid = resData.data.fileList[0].uuid;
+          //       this.board.contentFileList.push(imguuid);
+          //       const uploadedURL =
+          //         process.env.VUE_APP_APIBASE + "v1/files/download/" + imguuid;
+          //       callback(uploadedURL.toString(), "alt text");
+          //       return false;
+          //     })
+          //     .catch(() => {
+          //       console.log("UPLOAD FAILURE!!");
+          //     });
+          // }
         }
       },
 
       board: {
+        writer:"작성자",
         content: "",
         title: "",
-        visibleYn: true,
-        contentFileList: []
+        
       }
     };
   },
@@ -168,10 +146,10 @@ export default {
       this.board.content = html;
     },
     gotodetail() {
-      this.$router.push("/community/" + this.board.id);
+    this.$router.push("/notice");
     },
     gotolist() {
-      this.$router.push("/community");
+      this.$router.push("/notice");
     },
     save() {
       if (this.board.title.length > 100) {
@@ -185,8 +163,7 @@ export default {
         communityApi
           .writeCommunity(this.board)
           .then(() => {
-            console.log(this.board.contentFileList);
-            this.$router.push("/community");
+            this.$router.push("/notice");
           })
           .catch(res => {
             console.log(res);

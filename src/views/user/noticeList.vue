@@ -1,188 +1,112 @@
 <template>
-  
-    <v-container
-     
-      
-    >
-    <v-row>
-      <v-col>
+  <v-container grid-list-md>
+    <v-layout row wrap>
+      <!-- <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
+        {{article}}
+      </v-flex> -->
+      <v-flex xs12>
         <v-data-table
-    :headers="headers"
-    :items="boardList"
-    :items-per-page="5"
-    class="elevation-1"       @click:row="handleClick"
+          :headers="headers"
+          :items="articles"
+          :loading="loading">
+          <template v-slot:item="{item}" >
+            <tr  @click="handleClick(item)">
+            <td :class="headers[0].class">{{item.idx}}</td>
+            <td :class="headers[1].class">{{ item.title }}</td>
+            <td :class="headers[2].class">{{ item.writer ? item.writer : '손님' }}</td>
+            <td :class="headers[3].class">{{$moment(item.regdate).format("YYYY-MM-DD")  }}</td>
+            <td :class="headers[4].class">{{ item.viewcnt }}</td>
+            </tr>
+          </template>
+        
+        </v-data-table>
+          
+           <v-dialog v-model="dlRead" persistent  max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{article.title}}</span>
+        </v-card-title>
+        <v-card-text>
+          {{article.content}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" @click.native="dlRead = false">닫기</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog> 
 
-  >
-  
-  
-  </v-data-table>
-      </v-col>
-    </v-row>
-      
-    </v-container>
-
+    
+      </v-flex>
+      <v-btn @click="$router.push('/writenotice')">글쓰기</v-btn>
+    </v-layout>
+  </v-container>
 </template>
-
 <script>
-
 import communityApi from "@/api/community.js";
 
 export default {
-  name: "Home",
-  data: () => ({
-   
-    headers: [
-      {
-        text: "글번호",
-        align: "left",
-        value: "idx"
+  data () {
+    return {
+      // ..
+      dlRead:false,
+      articles: [],
+      article:{
+title:'',
+contetn:''
       },
-      { text: "제목", value: "title" },
-    
-          { text: "작성자", value: "writer" },
-
-      { text: "수정일", value: "updatedate" },
-        { text: "조회수", value: "viewcnt" }
-      // { text: "Actions", value: "actions", sortable: false }
-    ],
-    boardList: [],
-  }),
-  methods: {
-     listBoard() {      
-
-        communityApi
-          .listCommunity()
-          .then(({ data }) => {
-this.boardList = data;          })
-          .catch(res => {
-            console.log(res);
-          });
-      }
-    ,
-
-
-    communityDetail(idx) {
-      this.$router.push("/notice/" + idx);
-    },
-    handleClick(value) {
-      this.communityDetail(value.idx);
+      headers: [
+        { text: '글번호', value: 'idx', sortable: true},
+        { text: '제목', value: 'title', sortable: true },
+        { text: '글쓴이', value: 'writer', sortable: false },
+        { text: '작성일', value: 'regdate', sortable: true },
+        { text: '조회수', value: 'viewcnt', sortable: true }
+      ],
+      loading: false
+      // ..
     }
   },
-  created() {
-this.listBoard();  },
-  mounted() {},
-  
-};
+  // ..
+  methods: {
+    // ..
+    handleClick(value){
+      console.log(value)
+this.read(value);
+    },
+    
+    list () {
+      if (this.loading) return
+      this.loading = true
+      communityApi.listCommunity()
+        .then(({ data }) => {
+          this.articles = data
+          this.loading = false
+        })
+        .catch((e) => {
+                    console.log(e);
+          this.loading = false
+        })
+    },
+
+    read (board){
+      this.article.title = board.title;
+      this.loading = true
+      communityApi.selectCommunity(board.idx)
+      .then(({ data }) => {
+        this.dlRead=true
+          this.article = data
+          this.loading = false
+        })
+        .catch((e) => {
+                    console.log(e);
+
+          this.loading = false
+        })
+    }
+    
+  },
+  created(){
+      this.list();
+  }
+}
 </script>
-
-<style lang="scss">
-.search-bar-frame {
-  padding-right: 0px;
-  border-bottom: black solid 1px;
-  margin-bottom: 20px;
-
-  .counter-text {
-    margin-bottom: -50px;
-    margin-left: -15px;
-    font-size: 14px;
-    font-weight: bold;
-
-    b {
-      color: #dc2929;
-    }
-  }
-  .request-btn {
-    margin-top: 10px;
-    margin-left: 15px;
-    width: 100px;
-    height: 40px;
-    color: white;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #213e86;
-  }
-  .search-bar-datatable {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 10px;
-    height: 40px;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-      0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 3px 1px -2px rgb(0 0 0 / 20%);
-
-    .v-label {
-      font-size: 14px;
-    }
-    .v-input__append-inner {
-      margin-right: -12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 40px;
-      width: 40px;
-      background-color: #999999;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-        0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 20%);
-
-      .v-icon {
-        color: white !important;
-      }
-    }
-  }
-}
-.edu-frame {
-  background-color: white;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  max-width: 1200px;
-
-  .edu-title {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: -2px;
-  }
-  .edu-title-sub {
-    margin-right: 25px;
-    margin-top: 10px;
-  }
-  .edu-tabs {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    width: 100%;
-
-    .v-tab {
-      font-weight: bold;
-      font-size: 16px;
-      letter-spacing: 0px;
-      border: 2px solid gray;
-    }
-    .v-tab--active {
-      color: #213e86;
-      border: 2px solid;
-    }
-    .v-tab-slider-wrapper {
-      display: none;
-    }
-  }
-  .edu-datatable {
-    margin-right: 15px;
-  }
-  .edu-pagenation {
-    margin-top: 30px;
-  }
-}
-.tab-class {
-  border-left: 1px solid #213e86 !important;
-}
-.tab-class2 {
-  border-right: 1px solid #213e86 !important;
-}
-.v-text-field.v-text-field--solo .v-input__control {
-  min-height: 10px;
-}
-
-.combobox {
-  width: 5px;
-}
-</style>

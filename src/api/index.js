@@ -13,13 +13,14 @@ const instance = axios.create({
 //요청 인터셉터
 instance.interceptors.request.use(
   function(config) {
-   
+  
     //토큰이 존재할 경우 헤더에 토큰 추가
     let AUTH_TOKEN = store.getters.getToken;
     if (AUTH_TOKEN) {
       config.headers["BS-Authorization"] = AUTH_TOKEN;
 
     }
+   
     return config;
   },
   function(error) {

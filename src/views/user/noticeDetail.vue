@@ -1,12 +1,7 @@
 <template>
-  <v-layout
-    class="d-flex justify-center"
-    style="margin-top: -150px; margin-bottom:100px;"
-  >
+ 
     <v-container
-      
-      class="community-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
-    >
+      >
       <v-row>
         <span class="community-view-title">커뮤니티</span>
       </v-row>
@@ -62,7 +57,7 @@
         </div>
       </v-row>
     </v-container>
-  </v-layout>
+ 
 </template>
 
 <script>
