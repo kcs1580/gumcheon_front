@@ -4,7 +4,7 @@ export default {
   //커뮤니티 게시글 생성
   writeCommunity(board) {
     return api({
-      url: "v1/board",
+      url: "v1/board/write",
       method: "post",
       data: board
     });

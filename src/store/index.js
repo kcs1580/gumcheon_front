@@ -17,7 +17,7 @@ export default new Vuex.Store({
     //유저 아이디
     userId: "",
     //유저 닉네임
-    userNm: "",
+    userNm: "창수",
     //유저 타입
     userrole: [],
 

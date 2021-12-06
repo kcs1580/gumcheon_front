@@ -1,31 +1,30 @@
 <template>
- 
-    <v-container
-      >
+ <v-layout  class="d-flex justify-center">
+    <v-container 
+      class="community-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20" >
       <v-row>
-        <span class="community-view-title">커뮤니티</span>
+        <span class="community-view-title">공지사항</span>
       </v-row>
 
       <v-col cols="12" class="community-view-contents">
         <v-row class="view-contents-title">
         <v-col>{{this.board.title}}</v-col>
           <v-col
-            cols="2"
-            class="d-flex align-end flex-column contents-title-sub"
+           
+            
           >
-            <div>
+           
               {{ this.board.writer }} |
               {{ $moment(this.board.updatedate).format("YYYY-MM-DD") }}
-            </div>
-            <div>
+           
+           
              조회수 {{ this.board.viewcnt }}
-            </div>
+          
           </v-col>
         </v-row>
 
-        <v-row class="view-contents-content">
-         <v-textarea v-model="board.content"></v-textarea>
-        </v-row>
+        <v-row  v-if="this.loading == false" class="view-contents-content">
+<viewer  :initialValue="board.content" />        </v-row>
 
 
     
@@ -44,7 +43,7 @@
           />
         </div>
         <div
-          v-if="this.$store.state.userId == this.board.createdById"
+          
           @click="gotosave"
         >
           <Button
@@ -57,7 +56,7 @@
         </div>
       </v-row>
     </v-container>
- 
+ </v-layout>
 </template>
 
 <script>
@@ -102,20 +101,26 @@ export default {
       this.$router.push("/notice");
     },
     gotosave() {
-      this.$router.push({ name: "communityEdit", params: this.board });
+      this.$router.push({ name: "noticeEdit", params: this.board });
     },
     initialize() {
       let cid = this.$route.params.id;
+      this.loading = true
 
       communityApi
         .selectCommunity(cid)
         .then(res => {
           this.board = res.data;
+          this.loading = false;
+
         })
         .catch(res => {
           console.log(res);
         });
-    }
+    },
+
+
+   
   },
   created() {
     this.initialize();

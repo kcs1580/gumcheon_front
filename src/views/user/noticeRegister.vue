@@ -133,7 +133,7 @@ export default {
       },
 
       board: {
-        writer:"작성자",
+        writer: this.$store.state.userNm,
         content: "",
         title: "",
         

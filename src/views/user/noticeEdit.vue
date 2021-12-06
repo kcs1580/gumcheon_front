@@ -4,7 +4,6 @@
     style="margin-top: -150px; margin-bottom:100px;"
   >
     <v-container
-      v-if="isLoading == 0"
       class="community-frame rounded-xl pt-16 pb-14 pl-16 pr-10 elevation-20"
     >
       <v-row>
@@ -15,31 +14,10 @@
         <v-row class="community-write-contents-line">
           <div class="d-flex align-center community-contents-label">이름</div>
           <div class="d-flex align-center community-contents-input">
-            {{ board.createdByNm }}
+            {{ board.writer }}
           </div>
         </v-row>
-        <v-row class="community-write-contents-line">
-          <div class="d-flex align-center community-contents-label">
-            노출여부
-          </div>
-          <div class="d-flex align-center community-contents-input">
-            <v-radio-group
-              :column="false"
-              v-model="board.visibleYn"
-              class="community-contents-radio"
-            >
-              <v-radio
-                :dark="false"
-                v-for="item in radio"
-                :key="item.name"
-                :label="item.name"
-                :value="item.value"
-                color="#213E86"
-                :ripple="false"
-              ></v-radio>
-            </v-radio-group>
-          </div>
-        </v-row>
+    
         <v-row class="community-write-contents-line">
           <div class="d-flex align-center community-contents-label">
             제목
@@ -74,7 +52,7 @@
             >
           </div>
           <v-row class="community-write-textarea editor">
-            <editor
+            <editor v-if="this.loading == false"
               class="tui-editor-defaultUI"
               :initialValue="board.content"
               ref="toastuiEditor"
@@ -136,6 +114,7 @@ export default {
   components: { Button, editor: Editor },
   data() {
     return {
+      loading:true,
       tuihtml: "",
       uuidList: [],
       isLoading: 1,
@@ -186,14 +165,14 @@ export default {
       this.board.content = html;
     },
     gotodetail() {
-      this.$router.push("/community/" + this.board.id);
+      this.$router.push("/notice/" + this.board.id);
     },
     remove() {
       if (confirm("삭제 하시겠습니까?")) {
         communityApi
-          .deleteCommunity(this.board.id)
+          .deleteCommunity(this.board.idx)
           .then(() => {
-            this.$router.push("/community");
+            this.$router.push("/notice");
           })
           .catch(res => {
             console.log(res);
@@ -209,11 +188,11 @@ export default {
         alert("내용을 입력해주세요.");
       } else {
         confirm("등록 하시겠습니까?");
-        this.board.contentFileList = this.contentFileList;
+       
         communityApi
-          .updateCommunity(this.board.id, this.board)
+          .updateCommunity(this.board.idx, this.board)
           .then(() => {
-            this.$router.push("/community/" + this.board.id);
+            this.$router.push("/notice/" + this.board.idx);
           })
           .catch(res => {
             console.log(res);
@@ -222,14 +201,15 @@ export default {
     },
 
     initialize() {
-      let cid = this.$route.params.id;
+       let cid = this.$route.params.id;
+      this.loading = true
 
       communityApi
         .selectCommunity(cid)
         .then(res => {
-          this.board = res.data.board;
-          //this.board.contentFileList = res.data.contentFileList;
-          this.isLoading = 0;
+          this.board = res.data;
+          this.loading = false;
+
         })
         .catch(res => {
           console.log(res);

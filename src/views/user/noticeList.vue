@@ -69,10 +69,7 @@ contetn:''
   // ..
   methods: {
     // ..
-    handleClick(value){
-      console.log(value)
-this.read(value);
-    },
+
     
     list () {
       if (this.loading) return
@@ -102,6 +99,12 @@ this.read(value);
 
           this.loading = false
         })
+    },
+     communityDetail(idx) {
+      this.$router.push("/notice/" + idx);
+    },
+    handleClick(value) {
+      this.communityDetail(value.idx);
     }
     
   },
