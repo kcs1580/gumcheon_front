@@ -19,7 +19,7 @@ export default {
 
   login(data) {
     return api({
-      url: "/user/login",
+      url: "/v1/sign/signin",
       method: "post",
       data: { id: data.id, password: data.password }
     });

@@ -31,7 +31,7 @@
         <div class="header-btn d-none d-lg-flex d-xl-flex">
           
 
-          <div>
+          <div v-if="!getToken">
             <div class="right-side">
               <!-- 회원가입/ 로그인 버튼 -->
               <div @click="$router.push('/register')">
@@ -59,6 +59,27 @@
               </div>
             </div>
           </div>
+          <div v-else>
+        <v-row class="mt-3" no-gutters justify="center">
+          <v-btn
+            color="white"
+            height="36px"
+            rounded
+            style="padding-left:0px; padding-right:5px; pointer-events: none"
+          >
+            <v-avatar height="33" width="33" left>
+              <img src="@/assets/img/user.png" /> </v-avatar
+            ><span class="userInfoTag">{{ getuserNm }}</span></v-btn
+          >
+        </v-row>
+
+        <v-list>
+         
+          <v-list-item link @click="logout">
+            <v-list-item-title>로그 아웃</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </div>
         </div>
       </v-layout>
       <!-- 네비게이션 드로어 아이콘 -->
@@ -91,19 +112,7 @@
         </v-row>
 
         <v-list>
-          <v-list-item
-            v-if="getuserrole.includes('DEVELOPER')"
-            @click="$router.push('/registbot')"
-            link
-          >
-            <v-list-item-title>개발자 메뉴</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-title>구매 내역</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-title>계정 정보</v-list-item-title>
-          </v-list-item>
+         
           <v-list-item link @click="logout">
             <v-list-item-title>로그 아웃</v-list-item-title>
           </v-list-item>

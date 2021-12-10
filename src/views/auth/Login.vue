@@ -10,7 +10,7 @@
      </div>
        
      
-      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(userId, userPwd)">
+      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(id, password)">
         <div style="width:265px; margin-bottom:39px;display:inline-block">
           <v-text-field
            
@@ -28,6 +28,15 @@
            
             v-model="password"
             type="password"
+          />
+
+           <v-text-field
+            clearable
+                     hide-details
+
+            placeholder="이름을 입력해주세요"
+           
+            v-model="username"
           />
         </div>
         
@@ -51,7 +60,7 @@
      
        </div>
              <v-btn
-        @click="$router.push('/register')"
+        @click="signup(id,username, password)"
        rounded
         height="52"
         width="283"
@@ -69,12 +78,20 @@
 </template>
 
 <script>
+import userApi from "@/api/user.js";
 export default {
   data() {
     return {
-      id: "",
+      user:{
+         id: "",
       password: "",
-      msg: ""
+      username: "",
+      },
+      id: "",
+      password: "",    
+      username: "",  
+      msg: "",
+
     };
   },
   methods: {
@@ -87,10 +104,28 @@ export default {
       this.$store
         .dispatch("AUTH_REQUEST", { id, password })
         .then(res => {
-          this.$router.go(-1);
+       this.$router.go(-1);
         })
         .catch(error => {
           console.log(error);
+        });
+    },
+    signup(id, username,password) {
+
+this.user.id = id;
+this.user.username = username;
+this.user.password = password;
+      this.loading = true
+
+      userApi
+        .signup(this.user)
+        .then(res => {
+         console.log(res);
+          this.loading = false;
+this.$router.push("/login")
+        })
+        .catch(res => {
+          console.log(res);
         });
     }
   }

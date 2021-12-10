@@ -20,9 +20,9 @@ const router = new VueRouter({
 });
 
 //라우터 이동시 토큰 유효성 체크
-router.beforeEach((to, from, next) => {
-  if (store.state.token) store.dispatch("TOKEN_CHECK");
+// router.beforeEach((to, from, next) => {
+//   if (store.state.token) store.dispatch("TOKEN_CHECK");
 
-  return next();
-});
+//   return next();
+// });
 export default router;

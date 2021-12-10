@@ -17,7 +17,7 @@ export default new Vuex.Store({
     //유저 아이디
     userId: "",
     //유저 닉네임
-    userNm: "창수",
+    userNm: "",
     //유저 타입
     userrole: [],
 
@@ -318,11 +318,10 @@ export default new Vuex.Store({
     },
 
     //로그인 성공
-    AUTH_SUCCESS(state, { token, userId, userNm }) {
+    AUTH_SUCCESS(state, { token}) {
       state.status = "success";
       state.token = token;
-      state.userId = userId;
-      state.userNm = userNm;
+      
 
       function parseJwt(token) {
         var base64Url = token.split(".")[1];
@@ -340,7 +339,9 @@ export default new Vuex.Store({
       }
 
       var decodedtoken = parseJwt(token);
-      state.userrole = decodedtoken.BS_USER_ROLE;
+      state.userId = decodedtoken.sub;
+      state.userNm = decodedtoken.username;
+      state.userrole = decodedtoken.roles;
     },
     //인증 요청
     AUTH_REQUEST(state) {
@@ -373,11 +374,10 @@ export default new Vuex.Store({
         authApi
           .login({ id, password })
           .then(resp => {
-            console.log(resp);
+          
             const token = resp.data.token;
-            // const userId = resp.data.user.userId;
-            // const userNm = resp.data.user.userNm;
-            commit("AUTH_SUCCESS", { token, userId, userNm });
+            
+            commit("AUTH_SUCCESS", { token});
             // dispatch("USER_REQUEST")
 
             resolve(resp);

@@ -77,7 +77,7 @@ export default {
   //회원가입 요청
   signup(user) {
     return api({
-      url: `v1/user/registration`,
+      url: `v1/sign/signup`,
       method: "post",
       data: user
     });

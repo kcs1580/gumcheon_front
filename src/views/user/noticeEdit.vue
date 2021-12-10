@@ -165,7 +165,7 @@ export default {
       this.board.content = html;
     },
     gotodetail() {
-      this.$router.push("/notice/" + this.board.id);
+      this.$router.push("/notice/" + this.board.idx);
     },
     remove() {
       if (confirm("삭제 하시겠습니까?")) {

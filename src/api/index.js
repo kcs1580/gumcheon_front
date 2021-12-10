@@ -17,7 +17,7 @@ instance.interceptors.request.use(
     //토큰이 존재할 경우 헤더에 토큰 추가
     let AUTH_TOKEN = store.getters.getToken;
     if (AUTH_TOKEN) {
-      config.headers["BS-Authorization"] = AUTH_TOKEN;
+      config.headers["X-AUTH-TOKEN"] = AUTH_TOKEN;
 
     }
    
