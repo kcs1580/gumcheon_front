@@ -1,6 +1,12 @@
 <template>
   <!-- 로그인 페이지 -->  
   <div style="text-align:center">
+        <v-dialog
+      v-model="dialog"
+      max-width="321"
+    >
+      <template v-slot:activator="{ on, attrs }">
+       
   <v-card flat width="375px" >
      <div style="width:239px; display:inline-block" >
     <v-img         
@@ -10,40 +16,28 @@
      </div>
        
      
-      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(id, password)">
+      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(id, pw)">
         <div style="width:265px; margin-bottom:39px;display:inline-block">
-          <v-text-field
-           
-            placeholder="아이디를 입력해주세요"
-           
-          hide-details
-           
+          <v-text-field           
+            placeholder="아이디를 입력해주세요"           
+            hide-details           
             v-model="id"
           />
           <v-text-field
             clearable
-                     hide-details
-
-            placeholder="비밀번호를 입력해주세요"
-           
-            v-model="password"
+            hide-details
+            placeholder="비밀번호를 입력해주세요"           
+            v-model="pw"
             type="password"
           />
 
-           <v-text-field
-            clearable
-                     hide-details
-
-            placeholder="이름을 입력해주세요"
-           
-            v-model="username"
-          />
+      
         </div>
         
 
        
           <v-btn
-        @click="login(id, password)"
+        @click="login(id, pw)"
        rounded
         height="52"
         width="283"
@@ -59,38 +53,168 @@
               >
      
        </div>
+
+
+       
              <v-btn
-        @click="signup(id,username, password)"
+        @click="signup(id,user_nm, pw)"
        rounded
         height="52"
         width="283"
         color="#0276F9
 " outlined
-        ><div class="login-btn">회원가입</div></v-btn
+        ><div   v-bind="attrs"
+          v-on="on" class="login-btn" @click="dialog = false">비밀번호 초기화</div></v-btn
       >
+
+    
          
       </div>
+              <footerbar/>
 
-      {{ msg }}
       </v-card>
+      </template>
+     <v-card rounded="xl">
+       <v-card-title> <div style="width:265px; margin-bottom:39px;display:inline-block">
+          <v-text-field           
+            placeholder="아이디를 입력해주세요"           
+            hide-details           
+            v-model="id"
+          />
+          <v-text-field
+            clearable
+            hide-details
+            placeholder="소속부서를 입력해주세요"           
+            v-model="pw"
+            type="password"
+          />
+  <v-text-field
+            clearable
+            hide-details
+            placeholder="소속팀을 입력해주세요"           
+            v-model="pw"
+            type="password"
+          />
+  <v-text-field
+            clearable
+            hide-details
+            placeholder="직통 전화번호를 입력해주세요"           
+            v-model="pw"
+            type="password"
+          />
+      
+      
+        </div></v-card-title>
+      
+    <div class="reset-detail-box">시스템관리자에게 비밀번호 초기화를 요청합니다.<br/>
+초기 비밀번호를 안내받으신 후 로그인하여 주시기 바랍니다.</div>
+
+
+
+        <v-card-actions>
+           <!-- 하단 버튼 -->
+ <v-btn
+        @click="signup(id,user_nm, pw)"
+       rounded
+        height="52"
+        width="283"
+        color="#0276F9
+" outlined
+        ><div   v-bind="attrs"
+          v-on="on" class="login-btn" @click="dialog = false">비밀번호 초기화</div></v-btn
+      ></v-card-actions>
+          
+
+ 
+          
+  </v-card>
+    </v-dialog>
+      
+
+       <v-dialog
+      v-model="dialog2"
+      max-width="321"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+비밀번호 재설정        </v-btn>
+      </template>
+      <v-card rounded="xl">
+       <v-card-title> <div style="width:265px; margin-bottom:39px;display:inline-block">
+          <v-text-field           
+            placeholder="기존 비밀번호를 입력해주세요"           
+            hide-details           
+            v-model="id"
+          />
+          <v-text-field
+            clearable
+            hide-details
+            placeholder="변경할 비밀번호를 입력해주세요"           
+            v-model="pw"
+            type="password"
+          />
+  <v-text-field
+            clearable
+            hide-details
+            placeholder="변경할 비밀번호를 한번 더 입력해주세요"           
+            v-model="pw"
+            type="password"
+          />
+
+        </div></v-card-title>
+      
+    <div class="reset-detail-box">비밀번호는 8자 이상 숫자, 특수문자를<br/>
+반드시 포함하여야 합니다.</div>
+
+
+
+        <v-card-actions>
+           <!-- 하단 버튼 -->
+ <v-btn
+        @click="signup(id,user_nm, pw)"
+       rounded
+        height="52"
+        width="283"
+        color="#0276F9
+" outlined
+        ><div   v-bind="attrs"
+          v-on="on" class="login-btn" @click="dialog = false">비밀번호 변경</div></v-btn
+      ></v-card-actions>
+          
+
+ 
+          
+  </v-card>
+    </v-dialog>
+
   </div>
 
 </template>
 
 <script>
+import { headerbar, footerbar } from "@/views/user";
+
 import userApi from "@/api/user.js";
 export default {
+    components: { headerbar, footerbar },
+
   data() {
     return {
       user:{
          id: "",
-      password: "",
-      username: "",
+      pw: "",
+      user_nm: "",
       },
       id: "",
-      password: "",    
-      username: "",  
+      pw: "",    
+      user_nm: "",  
       msg: "",
+       dialog: false,dialog2: false,
 
     };
   },
@@ -99,10 +223,10 @@ export default {
       alert("구현중인 기능입니다.");
     },
     //로그인
-    login(id, password) {
+    login(id, pw) {
       // LOGIN 액션 실행
       this.$store
-        .dispatch("AUTH_REQUEST", { id, password })
+        .dispatch("AUTH_REQUEST", { id, pw })
         .then(res => {
        this.$router.go(-1);
         })
@@ -110,11 +234,11 @@ export default {
           console.log(error);
         });
     },
-    signup(id, username,password) {
+    signup(id, user_nm,pw) {
 
 this.user.id = id;
-this.user.username = username;
-this.user.password = password;
+this.user.user_nm = user_nm;
+this.user.pw = pw;
       this.loading = true
 
       userApi
@@ -150,9 +274,19 @@ this.$router.push("/login")
 .login-btn {
   font-size: 18px;
 }
-.v-btn {
+.v-btn{
   border-radius: 12px;
 }
+
+.reset-detail-box{
+  font-size: 11px;
+  width: 273px;
+  height: 34px;
+  text-align: center;
+  margin: 0 auto;
+}
+.v-btn:hover :before  {
+background: #55A5FF;}
 .find-btn{
   font-size: 13px;
   font-style: none;

@@ -340,8 +340,8 @@ export default new Vuex.Store({
 
       var decodedtoken = parseJwt(token);
       state.userId = decodedtoken.sub;
-      state.userNm = decodedtoken.username;
-      state.userrole = decodedtoken.roles;
+      state.userNm = decodedtoken.userNm;
+      state.userrole = decodedtoken.userRoles;
     },
     //인증 요청
     AUTH_REQUEST(state) {
@@ -368,11 +368,11 @@ export default new Vuex.Store({
   },
   actions: {
     //로그인
-    AUTH_REQUEST({ commit }, { id, password }) {
+    AUTH_REQUEST({ commit }, { id, pw }) {
       return new Promise((resolve, reject) => {
         commit("AUTH_REQUEST");
         authApi
-          .login({ id, password })
+          .login({ id, pw })
           .then(resp => {
           
             const token = resp.data.token;

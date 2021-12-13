@@ -3,10 +3,21 @@
   <v-row class="login-frame" justify="center" align="center">
     <router-view> </router-view>
   </v-row>
+  
 </template>
 
-<script></script>
-
-<style>
-
-</style>
+<script>
+import { headerbar, footerbar } from "@/views/user";
+export default {
+  components: { headerbar, footerbar },
+  data() {
+    return {
+      drawer: true
+    };
+  },
+  computed: {
+    
+  },
+  created() {}
+};
+</script>

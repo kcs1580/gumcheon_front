@@ -17,11 +17,11 @@ export default {
   //   });
   // },
 
-  login(data) {
+  login(user) {
     return api({
       url: "/v1/sign/signin",
       method: "post",
-      data: { id: data.id, password: data.password }
+      data: { id: user.id, pw: user.pw }
     });
   },
 

@@ -1,12 +1,4 @@
 <template>
-  <!-- 사용자 페이지 레이아웃 -->
-
-  <div>
-    <headerbar />
-
-  
-    <router-view></router-view>
-
   <!-- footer -->
   <v-footer padless>
     <v-card flat title width="100%" class="lighten-1 white--text align-center text-center re_footer" height="140" padless>
@@ -46,20 +38,44 @@
 
     </v-card>
   </v-footer>
-  </div>
 </template>
 
 <script>
-
 export default {
-  data() {
-    return {
-      drawer: true
-    };
-  },
-  computed: {
-    
-  },
-  created() {}
+  methods: {
+    preparing() {
+      alert("구현중입니다.");
+    }
+  }
 };
 </script>
+
+<style lang="scss">
+
+
+.re_footer .policyWrap {
+    height: auto;
+    text-align: center;
+    padding: 10px 0;
+}
+.re_footer .policyWrap .policy {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 5px;
+    
+}
+.re_footer .policyWrap .policy li a{
+    
+
+ text-decoration: none;
+    color: #636363;
+}
+
+.re_footer .policyWrap .policy li {
+  float: left;
+ list-style-type: none;
+margin-left: 20px;
+}
+
+
+</style>

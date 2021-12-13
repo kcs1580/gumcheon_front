@@ -1,5 +1,6 @@
 // 유저
-import serve from "../views/layout/serve.vue";
+import user from "../views/layout/user.vue";
+import admin from "../views/layout/admin.vue";
 import notice from "../views/user/notice.vue";
 import auth from "../views/layout/auth.vue";
 import store from "@/store";
@@ -40,6 +41,14 @@ const scheduler = () => import("@/views/auth/Scheduler.vue");
 //404 notfound 페이지
 const notfound = () => import("@/views/user/NotFoundPage.vue");
 
+
+
+//업무용 페이지
+const alogin = () => import("@/views/admin/alogin.vue");
+
+
+
+
 //로그인한 사용자만 접속 가능
 const requireAuth = () => (from, to, next) => {
   if (store.getters.authStatus == "success") return next();
@@ -59,9 +68,55 @@ const requireRole = userrole => (from, to, next) => {
 
 const routes = [
   {
+    //업무용 페이지
+    path: "/admin",
+    component: admin,
+    children: [
+      {
+        path: "login",
+        component: alogin,
+        name: "alogin"
+      }, 
+     ,
+      {
+        //커뮤니티
+        path: "/notice",
+        component: notice,
+        children: [
+          {
+            //커뮤니티 목록
+            path: "",
+            component: noticeList,
+            name: "noticeList"
+          },
+          {
+            //커뮤니티 등록
+            path: "/writenotice",
+            component: noticeRegister,
+            name: "noticeRegister",
+           // beforeEnter: requireAuth()
+          },
+          {
+            //커뮤니티 상세
+            path: ":id",
+            component: noticeDetail,
+            name: "noticeDetail"
+          },
+          {
+            //커뮤니티 수정
+            path: ":id/modify",
+            component: noticeEdit,
+            name: "noticeEdit",
+           // beforeEnter: requireAuth()
+          }
+        ]
+      },
+    ]
+  },
+  {
     //사용자 페이지
     path: "/",
-    component: serve,
+    component: user,
     children: [
       {
         //메인
