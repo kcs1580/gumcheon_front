@@ -10,7 +10,7 @@
   <v-card flat width="375px" >
      <div style="width:239px; height:50px; display:inline-block" >
     <v-img         
-              src="@/assets/img/gfmc_ci.svg" 
+              src="@/assets/img/gfmc_ci_gray.png" 
             />
    
      </div>
@@ -26,7 +26,7 @@
           />
           <v-text-field style="margin:0px;padding:0px"
           flat
-            clearable height="49px"   
+            clearable height="49px"
             hide-details
             placeholder="비밀번호를 입력해주세요"           
             v-model="pw"

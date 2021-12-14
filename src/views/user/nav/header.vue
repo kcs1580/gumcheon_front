@@ -1,7 +1,7 @@
 <template>
   <!-- header -->
   <div style="height=72px">
-    <v-app-bar
+    <v-app-bar color="#0276F9"
       class="protect-header-frame "
     >
       <v-layout
@@ -10,8 +10,8 @@
       >
         <div class="left-side">
           <!-- gfmc 로고 -->
-          <div class="title" @click="gotoUrl('/')">
-            <v-img width="235px"            
+          <div class="title" style="width:174px;" @click="gotoUrl('/')">
+            <v-img height="28px"             
               src="@/assets/img/gfmc_ci.png"
               
             />
@@ -85,7 +85,7 @@
       <!-- 네비게이션 드로어 아이콘 -->
       <v-app-bar-nav-icon
         class="d-lg-none d-xl-none"
-        style="color:#3577cd !important"
+        style="color:white !important"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
     </v-app-bar>

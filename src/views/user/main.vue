@@ -1,5 +1,14 @@
 <template>
-  <v-container fluid>
+  <v-container fluid height>
+    <v-row justify="center" align="center">
+      <v-col>
+        <v-btn width="334px" height="54px">내 정보관리</v-btn>
+      </v-col>
+      <v-col><v-btn width="334px" height="54px">불편신고</v-btn></v-col>
+      <v-col><v-btn width="334px" height="54px">접수 및 처리현황</v-btn></v-col>
+            <v-col><v-btn width="334px" height="54px">공지사항</v-btn></v-col>
+
+    </v-row>
       <v-row dense>
         <v-col
           v-for="card in cards"
@@ -149,7 +158,6 @@ export default {
   }
 }
 .upper {
-  background-color: #213e86;
   /* background-image: linear-gradient(to bottom right, #182E75, #5A4B79); */
 
   .banner-frame {
