@@ -76,29 +76,30 @@
 
       </v-card>
       </template>
-     <v-card rounded="xl">
-       <v-card-title> <div style="width:265px; margin-bottom:39px;display:inline-block">
-          <v-text-field           
+     <v-card rounded="xl" width="321px" > 
+       <v-row no-gutters align="center" justify="center" >
+        <div style="width:261px;display:inline-block;margin-top:23px;">
+          <v-text-field height="34px"          
             placeholder="아이디를 입력해주세요"           
             hide-details           
             v-model="id"
           />
           <v-text-field
-            clearable
+            clearable height="34px"
             hide-details
             placeholder="소속부서를 입력해주세요"           
             v-model="pw"
             type="password"
           />
   <v-text-field
-            clearable
+            clearable height="34px"
             hide-details
             placeholder="소속팀을 입력해주세요"           
             v-model="pw"
             type="password"
           />
   <v-text-field
-            clearable
+            clearable height="34px"
             hide-details
             placeholder="직통 전화번호를 입력해주세요"           
             v-model="pw"
@@ -106,27 +107,25 @@
           />
       
       
-        </div></v-card-title>
-      
-    <div class="reset-detail-box">시스템관리자에게 비밀번호 초기화를 요청합니다.<br/>
-초기 비밀번호를 안내받으신 후 로그인하여 주시기 바랍니다.</div>
+        </div>
+        <div style="width:273px; margin-top:24px;" class="reset-detail-box">          
+         시스템관리자에게 비밀번호 초기화를 요청합니다.<br/>    
+      초기 비밀번호를 안내받으신 후 로그인하여 주시기 바랍니다.
+      </div>
+    
 
-
-
-        <v-card-actions>
-           <!-- 하단 버튼 -->
- <v-btn
+     <!-- 하단 버튼 -->
+ 
+ <v-btn style="margin-top:26px;margin-bottom:29px"
         @click="signup(id,user_nm, pw)"
        rounded
-        height="52"
-        width="283"
-        color="#0276F9
-" outlined
+        height="49"
+        width="266"
+        color="#0276F9"
         ><div   v-bind="attrs"
-          v-on="on" class="login-btn" @click="dialog = false">비밀번호 초기화</div></v-btn
-      ></v-card-actions>
-          
-  </v-card>
+          v-on="on" class="login-btn white--text" @click="dialog = false">비밀번호 초기화 신청</div></v-btn
+      >       
+          </v-row> </v-card>
     </v-dialog>
       
 
@@ -143,52 +142,48 @@
         >
 비밀번호 재설정        </v-btn>
       </template>
-      <v-card rounded="xl">
-       <v-card-title> <div style="width:265px; margin-bottom:39px;display:inline-block">
-          <v-text-field           
+     <v-card rounded="xl" width="321px" > 
+       <v-row no-gutters align="center" justify="center" >
+        <div style="width:261px;display:inline-block;margin-top:23px;">
+          <v-text-field height="34px"          
             placeholder="기존 비밀번호를 입력해주세요"           
             hide-details           
             v-model="id"
           />
           <v-text-field
-            clearable
+            clearable height="34px"
             hide-details
             placeholder="변경할 비밀번호를 입력해주세요"           
             v-model="pw"
             type="password"
           />
   <v-text-field
-            clearable
+            clearable height="34px"
             hide-details
             placeholder="변경할 비밀번호를 한번 더 입력해주세요"           
             v-model="pw"
             type="password"
           />
-
-        </div></v-card-title>
       
-    <div class="reset-detail-box">비밀번호는 8자 이상 숫자, 특수문자를<br/>
+      
+        </div>
+        <div style="width:273px; margin-top:24px;" class="reset-detail-box">          
+         비밀번호는 8자리 이상 숫자, 특수문자를<br/>    
 반드시 포함하여야 합니다.</div>
+    
 
-
-
-        <v-card-actions>
-           <!-- 하단 버튼 -->
- <v-btn
+     <!-- 하단 버튼 -->
+ 
+ <v-btn style="margin-top:26px;margin-bottom:29px"
         @click="signup(id,user_nm, pw)"
        rounded
-        height="52"
-        width="283"
-        color="#0276F9
-" outlined
+        height="49"
+        width="266"
+        color="#0276F9"
         ><div   v-bind="attrs"
-          v-on="on" class="login-btn" @click="dialog = false">비밀번호 변경</div></v-btn
-      ></v-card-actions>
-          
-
- 
-          
-  </v-card>
+          v-on="on" class="login-btn white--text" @click="dialog = false">비밀번호 초기화 신청</div></v-btn
+      >       
+          </v-row> </v-card>
     </v-dialog>
 
   </div>
@@ -293,7 +288,5 @@ color: #313640;
 margin: 14px;
 }
 
-.v-application--is-ltr .v-card__actions > .v-btn.v-btn + .v-btn {
-  margin-left: 0px;
-}
+
 </style>
