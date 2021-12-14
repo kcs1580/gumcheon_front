@@ -8,7 +8,7 @@
       <template v-slot:activator="{ on, attrs }">
        
   <v-card flat width="375px" >
-     <div style="width:239px; display:inline-block" >
+     <div style="width:239px; height:50px; display:inline-block" >
     <v-img         
               src="@/assets/img/gfmc_ci.svg" 
             />
@@ -16,15 +16,17 @@
      </div>
        
      
-      <div style="margin-top:35px; padding-top:0px;" @keydown.enter="login(id, pw)">
-        <div style="width:265px; margin-bottom:39px;display:inline-block">
-          <v-text-field           
+      <div  @keydown.enter="login(id, pw)">
+        <div style="width:265px;margin-top:39px; margin-bottom:39px;display:inline-block">
+          <v-text-field style="margin:0px;padding:0px" height="49px"          
             placeholder="아이디를 입력해주세요"           
             hide-details           
             v-model="id"
+            flat
           />
-          <v-text-field
-            clearable
+          <v-text-field style="margin:0px;padding:0px"
+          flat
+            clearable height="49px"   
             hide-details
             placeholder="비밀번호를 입력해주세요"           
             v-model="pw"
@@ -40,11 +42,11 @@
         @click="login(id, pw)"
        rounded
         height="52"
-        width="283"
+        width="291"
         color="#0276F9
 "
         ><div class="login-btn white--text">로그인</div></v-btn
-      >           <div style="display:inline-block">
+      >           <div style="display:inline-block; margin-top:12px">
            
               <a class="find-btn" @click="undone()" 
                 >아이디 찾기</a
@@ -56,15 +58,15 @@
 
 
        
-             <v-btn
-        @click="signup(id,user_nm, pw)"
+             <v-btn v-bind="attrs"  v-on="on" 
+        @click="signup(id,user_nm, pw),dialog = false"
        rounded
         height="52"
-        width="283"
+        width="291"
         color="#0276F9
-" outlined
-        ><div   v-bind="attrs"
-          v-on="on" class="login-btn" @click="dialog = false">비밀번호 초기화</div></v-btn
+" outlined style="margin-top:72px"
+        ><div   
+         class="login-btn">비밀번호 초기화</div></v-btn
       >
 
     
@@ -123,9 +125,6 @@
         ><div   v-bind="attrs"
           v-on="on" class="login-btn" @click="dialog = false">비밀번호 초기화</div></v-btn
       ></v-card-actions>
-          
-
- 
           
   </v-card>
     </v-dialog>
