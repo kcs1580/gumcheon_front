@@ -7,13 +7,14 @@
     >
       <template v-slot:activator="{ on, attrs }">
        
-  <v-card flat width="375px" >
+  <v-card flat width="375px" ><button text>
      <div style="width:239px; height:50px; display:inline-block" >
-    <v-img         
+       
+    <v-img @click="gotoUrl('/')"        
               src="@/assets/img/gfmc_ci_gray.png" 
             />
    
-     </div>
+     </div></button>
        
      
       <div  @keydown.enter="login(id, pw)">
@@ -181,7 +182,7 @@
         width="266"
         color="#0276F9"
         ><div   v-bind="attrs"
-          v-on="on" class="login-btn white--text" @click="dialog = false">비밀번호 초기화 신청</div></v-btn
+          v-on="on" class="login-btn white--text" @click="dialog = false">비밀번호 변경</div></v-btn
       >       
           </v-row> </v-card>
     </v-dialog>
@@ -213,6 +214,11 @@ export default {
     };
   },
   methods: {
+    gotoUrl(toUrl) {
+      if (toUrl === this.$route.path) {
+        location.reload();
+      } else this.$router.push(toUrl);
+    },
     undone() {
       alert("구현중인 기능입니다.");
     },
