@@ -1,14 +1,13 @@
 <template>
   <!-- 사용자 페이지 레이아웃 -->
 
-  <div>
+  <v-container class="pa-0" style="max-width: 375px">
     <headerbar />
 
-  
     <router-view></router-view>
 
     <footerbar />
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -17,12 +16,10 @@ export default {
   components: { headerbar, footerbar },
   data() {
     return {
-      drawer: true
+      drawer: true,
     };
   },
-  computed: {
-    
-  },
-  created() {}
+  computed: {},
+  created() {},
 };
 </script>

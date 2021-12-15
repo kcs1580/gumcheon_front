@@ -1,49 +1,86 @@
 <template>
   <v-container fluid height>
-    <v-row justify="center" align="center">
-      <v-col>
-        <v-btn width="334px" height="54px">내 정보관리</v-btn>
-      </v-col>
-      <v-col><v-btn width="334px" height="54px">불편신고</v-btn></v-col>
-      <v-col><v-btn width="334px" height="54px">접수 및 처리현황</v-btn></v-col>
-            <v-col><v-btn width="334px" height="54px">공지사항</v-btn></v-col>
-
-    </v-row>
-      <v-row dense>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :cols="card.flex"
+    <v-row no-gutters align="center" justify="center">
+      <v-col cols="12">
+        <v-card
+          width="334px"
+          flat
+          style="margin-top: 84px; margin-bottom: 81px"
         >
-          <v-card >
-            <v-img
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px" @click="$router.push('/notice')"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+          <div style="font-size: 20px">안녕하세요,</div>
+          <div style="font-weight: bold; font-size: 30px">
+            불편접수시스템입니다.
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card width="334px" flat>
+          <v-btn
+            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            class="white--text"
+            @click="signup(id, user_nm, pw)"
+            color="#0276F9"
+            width="334px"
+            height="54px"
+            >내 정보관리</v-btn
+          >
+          <v-btn
+            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            class="main-btn white--text"
+            width="334px"
+            height="54px"
+            color="#0276F9"
+            >불편 신고</v-btn
+          >
+          <v-btn
+            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            class="main-btn white--text"
+            width="334px"
+            color="#0276F9"
+            height="54px"
+            >접수 및 처리현황</v-btn
+          >
+          <v-btn
+            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            class="main-btn white--text"
+            width="334px"
+            height="54px"
+            color="#0276F9"
+            >공지사항</v-btn
+          >
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card
+          width="334px"
+          flat
+          style="margin-top: 83px; margin-bottom: 44px"
+        >
+          <v-row no-gutters align="center" justify="space-between">
+            <div style="font-weight: bold; font-size: 20px">공지사항</div>
+            <button text>
+              <v-icon>mdi-plus</v-icon>
+            </button>
+          </v-row>
+          <v-divider style="margin-top: 12px" />
+          <v-data-table
+            style="
+              border: 0.8px solid #cbcccc;
+              box-sizing: border-box;
+              border-radius: 12px;
+              margin: 10px 0px;
+              padding: 12px 15px;
+            "
+            hide-default-header
+            hide-default-footer
+            :headers="headers"
+            :items="items"
+            :items-per-page="5"
+          ></v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -60,40 +97,40 @@ export default {
     getBotList() {
       botApi
         .listBot({ itemCnt: 8, startId: 0 })
-        .then(res => {
+        .then((res) => {
           this.mainList1 = res.data.list;
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
     },
     getBotList2() {
       botApi
         .listBot({ itemCnt: 8, startId: 0, jobCategoryList: [10] })
-        .then(res => {
+        .then((res) => {
           this.mainList2 = res.data.list;
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
     },
     getBotCount() {
       botApi
         .getBotCount()
-        .then(res => {
+        .then((res) => {
           this.botCount = res.data.total;
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
     },
     getUserCount() {
       userApi
         .getUserCount()
-        .then(res => {
+        .then((res) => {
           this.userCount = res.data.totalUserCount;
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
     },
@@ -107,7 +144,7 @@ export default {
     getCategory() {
       botApi
         .getBotCount()
-        .then(res => {
+        .then((res) => {
           this.jobCategory.content = res.data.jobCategoryList;
           this.jobCategory.total = res.data.jobCategoryListTotal;
 
@@ -115,18 +152,59 @@ export default {
           this.getBotList();
           this.getBotList2();
         })
-        .catch(res => {
+        .catch((res) => {
           console.log(res);
         });
-    }
+    },
   },
   data() {
     return {
+      headers: [
+        {
+          text: "title",
+          align: "start",
+          sortable: false,
+          value: "title",
+        },
+      ],
+      items: [
+        {
+          title: "2022 공공안전 사업 계획",
+        },
+        {
+          title: "금천구시설관리공단 접수지연 안내",
+        },
+        {
+          title: "불편접수 전 확인해주세요",
+        },
+        {
+          title: "2022 공공안전 사업 계획",
+        },
+        {
+          title: "2022 공공안전 사업 계획",
+        },
+      ],
       cards: [
-        { title: '불편접수', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 6 },
-        { title: '내 정보관리', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: '접수 및 처리 현황', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-        { title: '공지사항', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        {
+          title: "불편접수",
+          src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+          flex: 6,
+        },
+        {
+          title: "내 정보관리",
+          src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
+          flex: 6,
+        },
+        {
+          title: "접수 및 처리 현황",
+          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          flex: 6,
+        },
+        {
+          title: "공지사항",
+          src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+          flex: 6,
+        },
       ],
       mainCategory: [],
       mainList1: [],
@@ -136,17 +214,20 @@ export default {
       jobCategory: {
         title: "카테고리",
         content: [{ categoryName: "" }],
-        total: ""
-      }
+        total: "",
+      },
     };
   },
-  created() {
-    },
-  mounted() {}
+  created() {},
+  mounted() {},
 };
 </script>
 
 <style lang="scss">
+.main-btn {
+  border-radius: 12px;
+  font-size: 18px;
+}
 .sub-text {
   width: 100%;
   margin-bottom: 10px;

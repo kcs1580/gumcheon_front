@@ -18,6 +18,7 @@
 
           <div @keydown.enter="login(id, pw)">
             <div
+              class="dialog-input"
               style="
                 width: 265px;
                 margin-top: 39px;
@@ -81,7 +82,10 @@
       </template>
       <v-card rounded="xl" width="321px">
         <v-row no-gutters align="center" justify="center">
-          <div style="width: 261px; display: inline-block; margin-top: 23px">
+          <div
+            class="dialog-input"
+            style="width: 261px; display: inline-block; margin-top: 23px"
+          >
             <v-text-field
               height="34px"
               placeholder="아이디를 입력해주세요"
@@ -148,7 +152,10 @@
       </template>
       <v-card rounded="xl" width="321px">
         <v-row no-gutters align="center" justify="center">
-          <div style="width: 261px; display: inline-block; margin-top: 23px">
+          <div
+            class="dialog-input"
+            style="width: 261px; display: inline-block; margin-top: 23px"
+          >
             <v-text-field
               height="34px"
               placeholder="기존 비밀번호를 입력해주세요"
@@ -266,6 +273,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::v-deep .dialog-input {
+  font-size: 15px !important;
+}
 .login-title {
   font-size: 24px;
   font-weight: bold;
