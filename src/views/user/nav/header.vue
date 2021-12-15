@@ -1,7 +1,7 @@
 <template>
   <!-- header -->
   <div style="height=72px">
-    <v-app-bar color="#0276F9" class="protect-header-frame">
+    <v-app-bar flat color="#0276F9" class="protect-header-frame">
       <v-layout
         justify-space-between
         class="d-flex align-center protect-header"

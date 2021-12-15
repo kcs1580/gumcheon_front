@@ -76,7 +76,8 @@
             :headers="headers"
             :items="items"
             :items-per-page="5"
-          ></v-data-table>
+          >
+          </v-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -224,6 +225,9 @@ export default {
 </script>
 
 <style lang="scss">
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  height: 40px !important;
+}
 .main-btn {
   border-radius: 12px;
   font-size: 18px;
