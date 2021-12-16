@@ -30,11 +30,12 @@
       </v-col>
 
       <v-col cols="12">
-        <v-card width="334px" flat style="">
+        <v-card width="334px" flat>
           <v-row no-gutters align="center" justify="space-between">
-            <div style="font-weight: 500; font-size: 18px">시설</div>
-
-            <div class="pa-4">
+            <v-col cols="12" style="font-weight: 500; font-size: 18px">
+              시설</v-col
+            >
+            <v-col cols="9" style="margin-bottom: 20px">
               <v-chip-group active-class="primary--text" column>
                 <v-chip
                   text-color="black"
@@ -47,16 +48,16 @@
                   {{ tag }}
                 </v-chip>
               </v-chip-group>
-            </div>
+            </v-col>
           </v-row>
         </v-card>
         <v-card width="334px" flat>
           <v-row no-gutters align="center" justify="space-between">
-            <div style="font-weight: 500; font-size: 18px">기관명</div>
+            <v-col style="font-weight: 500; font-size: 18px">기관명</v-col>
             <v-col cols="12">
               <v-select
                 :items="faci"
-                label="기관명을 선택해주세요."
+                placeholder="기관명을 선택해주세요."
                 dense
                 outlined
               ></v-select>
@@ -65,11 +66,11 @@
         </v-card>
         <v-card width="334px" flat>
           <v-row no-gutters align="center" justify="space-between">
-            <div style="font-weight: 500; font-size: 18px">전화번호</div>
+            <v-col v style="font-weight: 500; font-size: 18px">전화번호</v-col>
             <v-col cols="12">
               <v-text-field
                 :items="faci"
-                label="연락 가능한 번호를 적어주세요."
+                placeholder="연락 가능한 번호를 적어주세요."
                 dense
                 outlined
               ></v-text-field>
@@ -77,11 +78,13 @@
           </v-row> </v-card
         ><v-card width="334px" flat>
           <v-row no-gutters align="center" justify="space-between">
-            <div style="font-weight: 500; font-size: 18px">불편접수 내용</div>
+            <v-col style="font-weight: 500; font-size: 18px"
+              >불편접수 내용</v-col
+            >
             <v-col cols="12">
               <v-textarea
                 :items="faci"
-                label="불편접수 내용을 적어주세요."
+                placeholder="불편접수 내용을 적어주세요."
                 dense
                 outlined
                 no-resize
@@ -91,11 +94,11 @@
         </v-card>
         <v-card width="334px" flat>
           <v-row no-gutters align="center" justify="space-between">
-            <div style="font-weight: 500; font-size: 18px">사진 첨부</div>
+            <v-col style="font-weight: 500; font-size: 18px">사진 첨부</v-col>
             <v-col cols="12">
               <v-text-field
                 :items="faci"
-                label="53mb 이하의 파일만 가능합니다."
+                placeholder="53mb 이하의 파일만 가능합니다."
                 dense
                 outlined
               ></v-text-field>
