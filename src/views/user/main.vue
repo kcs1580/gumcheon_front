@@ -16,7 +16,7 @@
       <v-col cols="12">
         <v-card width="334px" flat>
           <v-btn
-            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
             class="white--text"
             @click="signup(id, user_nm, pw)"
             color="#0276F9"
@@ -25,15 +25,16 @@
             >내 정보관리</v-btn
           >
           <v-btn
-            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
             class="main-btn white--text"
             width="334px"
             height="54px"
             color="#0276F9"
-            >불편 신고</v-btn
+            @click="gotoUrl('/report')"
+            >불편 접수</v-btn
           >
           <v-btn
-            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
             class="main-btn white--text"
             width="334px"
             color="#0276F9"
@@ -41,7 +42,7 @@
             >접수 및 처리현황</v-btn
           >
           <v-btn
-            style="border-radius: 12px; font-size: 23px; margin-bottom: 11px"
+            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
             class="main-btn white--text"
             width="334px"
             height="54px"
@@ -95,67 +96,10 @@ export default {
   methods: {
     //Vuex Helper Mutations
     ...mapMutations(["SET_BUSINESSCATEGORYLIST", "SET_ALLJOBCATEGORYLIST"]),
-    getBotList() {
-      botApi
-        .listBot({ itemCnt: 8, startId: 0 })
-        .then((res) => {
-          this.mainList1 = res.data.list;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getBotList2() {
-      botApi
-        .listBot({ itemCnt: 8, startId: 0, jobCategoryList: [10] })
-        .then((res) => {
-          this.mainList2 = res.data.list;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getBotCount() {
-      botApi
-        .getBotCount()
-        .then((res) => {
-          this.botCount = res.data.total;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getUserCount() {
-      userApi
-        .getUserCount()
-        .then((res) => {
-          this.userCount = res.data.totalUserCount;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getRecommend() {
-      this.$router.push("/bot");
-      this.SET_BUSINESSCATEGORYLIST([10]);
-    },
-    setCategory() {
-      this.SET_BUSINESSCATEGORYLIST([10]);
-    },
-    getCategory() {
-      botApi
-        .getBotCount()
-        .then((res) => {
-          this.jobCategory.content = res.data.jobCategoryList;
-          this.jobCategory.total = res.data.jobCategoryListTotal;
-
-          this.SET_ALLJOBCATEGORYLIST(this.jobCategory.content);
-          this.getBotList();
-          this.getBotList2();
-        })
-        .catch((res) => {
-          console.log(res);
-        });
+    gotoUrl(toUrl) {
+      if (toUrl === this.$route.path) {
+        location.reload();
+      } else this.$router.push(toUrl);
     },
   },
   data() {
@@ -207,16 +151,6 @@ export default {
           flex: 6,
         },
       ],
-      mainCategory: [],
-      mainList1: [],
-      mainList2: [],
-      botCount: 0,
-      userCount: 0,
-      jobCategory: {
-        title: "카테고리",
-        content: [{ categoryName: "" }],
-        total: "",
-      },
     };
   },
   created() {},
