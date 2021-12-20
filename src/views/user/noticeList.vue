@@ -1,115 +1,284 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout row wrap>
-      <!-- <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
-        {{article}}
-      </v-flex> -->
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="articles"
-          :loading="loading">
-          <template v-slot:item="{item}" >
-            <tr  @click="handleClick(item)">
-            <td :class="headers[0].class">{{item.idx}}</td>
-            <td :class="headers[1].class">{{ item.title }}</td>
-            <td :class="headers[2].class">{{ item.writer ? item.writer : '손님' }}</td>
-            <td :class="headers[3].class">{{$moment(item.regdate).format("YYYY-MM-DD")  }}</td>
-            <td :class="headers[4].class">{{ item.viewcnt }}</td>
-            </tr>
-          </template>
-        
-        </v-data-table>
-          
-           <v-dialog v-model="dlRead" persistent  max-width="500px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{article.title}}</span>
-        </v-card-title>
-        <v-card-text>
-          {{article.content}}
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="red darken-1" @click.native="dlRead = false">닫기</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> 
+  <v-container fluid height>
+    <v-row no-gutters align="center" justify="center">
+      <v-col cols="12">
+        <v-card width="334px" flat style="margin-top: 84px">
+          <div style="font-weight: bold; font-size: 30px">공지사항</div>
+          <div style="font-size: 20px">
+            금천구시설관리공단 <br />
+            서비스 소식입니다.
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card width="334px" flat>
+          <v-divider style="margin-top: 28px; margin-bottom: 74px" />
+        </v-card>
+      </v-col>
 
-    
-      </v-flex>
-      <v-btn @click="$router.push('/writenotice')">글쓰기</v-btn>
-    </v-layout>
+      <v-col cols="12">
+        <v-card width="334px" flat style="margin-bottom: 44px">
+          <v-row no-gutters align="center" justify="space-between">
+            <div style="font-weight: bold; font-size: 20px">제목</div>
+            <div style="font-weight: bold; font-size: 20px">게시일</div>
+          </v-row>
+          <v-divider style="margin-top: 12px" />
+          <v-data-table
+            hide-default-header
+            style="margin: 10px 0px; padding: 12px 15px"
+            :headers="headers"
+            :items="articels"
+            :items-per-page="5"
+          >
+          </v-data-table>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12">
+        <v-card width="334px" flat>
+          <v-row no-gutters align="center" justify="space-between">
+            <v-col cols="12" style="font-weight: 500; font-size: 18px">
+              시설</v-col
+            >
+            <v-col cols="9" style="margin-bottom: 20px">
+              <v-chip-group active-class="primary--text" column>
+                <v-chip
+                  text-color="black"
+                  outlined
+                  label
+                  color="#0276F9"
+                  v-for="tag in tags"
+                  :key="tag"
+                >
+                  {{ tag }}
+                </v-chip>
+              </v-chip-group>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card width="334px" flat>
+          <v-row no-gutters align="center" justify="space-between">
+            <v-col style="font-weight: 500; font-size: 18px">기관명</v-col>
+            <v-col cols="12">
+              <v-select
+                :items="faci"
+                placeholder="기관명을 선택해주세요."
+                dense
+                outlined
+              ></v-select>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card width="334px" flat>
+          <v-row no-gutters align="center" justify="space-between">
+            <v-col v style="font-weight: 500; font-size: 18px">전화번호</v-col>
+            <v-col cols="12">
+              <v-text-field
+                :items="faci"
+                placeholder="연락 가능한 번호를 적어주세요."
+                dense
+                outlined
+              ></v-text-field>
+            </v-col>
+          </v-row> </v-card
+        ><v-card width="334px" flat>
+          <v-row no-gutters align="center" justify="space-between">
+            <v-col style="font-weight: 500; font-size: 18px"
+              >불편접수 내용</v-col
+            >
+            <v-col cols="12">
+              <v-textarea
+                :items="faci"
+                placeholder="불편접수 내용을 적어주세요."
+                dense
+                outlined
+                no-resize
+              ></v-textarea>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card width="334px" flat>
+          <v-row no-gutters align="center" justify="space-between">
+            <v-col style="font-weight: 500; font-size: 18px">사진 첨부</v-col>
+            <v-col cols="12">
+              <v-text-field
+                :items="faci"
+                placeholder="53mb 이하의 파일만 가능합니다."
+                dense
+                outlined
+              ></v-text-field>
+              <v-file-input></v-file-input>
+            </v-col>
+          </v-row>
+          <div
+            style="
+              font-size: 13px;
+              line-height: 19px;
+              letter-spacing: -0.06em;
+              color: #6c6c6c;
+              margin-bottom: 60px;
+              margin-top: 99px;
+            "
+          >
+            상황에 따라 기한 또는 인원이 변경 될 수 있으며, 자세한 내용
+            파악을<br />
+            위해 담당자가 연락을 취할 수 있습니다. 감사합니다.
+          </div>
+          <v-btn
+            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
+            class="white--text"
+            color="#0276F9"
+            width="334px"
+            height="54px"
+            >접수하기</v-btn
+          >
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
 import communityApi from "@/api/community.js";
 
 export default {
-  data () {
+  data() {
     return {
       // ..
-      dlRead:false,
+      dlRead: false,
       articles: [],
-      article:{
-title:'',
-contetn:''
+      article: {
+        title: "",
+        contetn: "",
       },
       headers: [
-        { text: '글번호', value: 'idx', sortable: true},
-        { text: '제목', value: 'title', sortable: true },
-        { text: '글쓴이', value: 'writer', sortable: false },
-        { text: '작성일', value: 'regdate', sortable: true },
-        { text: '조회수', value: 'viewcnt', sortable: true }
+        { text: "제목", value: "title" },
+        { text: "게시일", value: "regdate" },
       ],
-      loading: false
+      loading: false,
       // ..
-    }
+    };
   },
   // ..
   methods: {
     // ..
 
-    
-    list () {
-      if (this.loading) return
-      this.loading = true
-      communityApi.listCommunity()
+    list() {
+      if (this.loading) return;
+      this.loading = true;
+      communityApi
+        .listCommunity()
         .then(({ data }) => {
-          this.articles = data
-          this.loading = false
+          this.articles = data;
+          this.loading = false;
         })
         .catch((e) => {
-                    console.log(e);
-          this.loading = false
-        })
+          console.log(e);
+          this.loading = false;
+        });
     },
 
-    read (board){
+    read(board) {
       this.article.title = board.title;
-      this.loading = true
-      communityApi.selectCommunity(board.idx)
-      .then(({ data }) => {
-        this.dlRead=true
-          this.article = data
-          this.loading = false
+      this.loading = true;
+      communityApi
+        .selectCommunity(board.idx)
+        .then(({ data }) => {
+          this.dlRead = true;
+          this.article = data;
+          this.loading = false;
         })
         .catch((e) => {
-                    console.log(e);
+          console.log(e);
 
-          this.loading = false
-        })
+          this.loading = false;
+        });
     },
-     communityDetail(idx) {
+    communityDetail(idx) {
       this.$router.push("/notice/" + idx);
     },
     handleClick(value) {
       this.communityDetail(value.idx);
-    }
-    
+    },
   },
-  created(){
-      this.list();
+  created() {
+    this.list();
+  },
+};
+</script>
+
+<style lang="scss">
+#chip.v-chip.complete {
+  background: #00cc00;
+}
+#chip.v-chip.ongoing {
+  background: #0099ff;
+}
+#chip.v-chip.overdue {
+  background: #ff0000;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  height: 40px !important;
+}
+.main-btn {
+  border-radius: 12px;
+  font-size: 18px;
+}
+.sub-text {
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: black;
+  span {
+    color: #d70000;
   }
 }
-</script>
+.upper {
+  /* background-image: linear-gradient(to bottom right, #182E75, #5A4B79); */
+
+  .banner-frame {
+    /* padding-top: 20px; */
+    padding-bottom: 20px;
+  }
+}
+.searchFrame {
+  width: 100%;
+  max-width: 1180px;
+  margin-top: -82px;
+  background-color: white;
+}
+
+.firstFloor {
+  margin-top: 50px;
+  width: 100%;
+
+  .firstFloor-title {
+    margin-bottom: 20px;
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+.secondFloor {
+  margin-top: 50px;
+  width: 100%;
+
+  .secondloor-title {
+    margin-bottom: 20px;
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+.main-background {
+  background-color: #f6fafd;
+}
+.card-divider {
+  margin-top: 60px;
+}
+</style>

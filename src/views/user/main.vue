@@ -47,6 +47,7 @@
             width="334px"
             height="54px"
             color="#0276F9"
+            @click="gotoUrl('/notice')"
             >공지사항</v-btn
           >
         </v-card>

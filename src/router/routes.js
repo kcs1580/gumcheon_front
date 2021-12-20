@@ -77,7 +77,7 @@ const routes = [
       ,
       {
         //커뮤니티
-        path: "/notice",
+        path: "/notice222",
         component: notice,
         children: [
           {
@@ -88,7 +88,7 @@ const routes = [
           },
           {
             //커뮤니티 등록
-            path: "/writenotice",
+            path: "/writenotice222",
             component: noticeRegister,
             name: "noticeRegister",
             // beforeEnter: requireAuth()
