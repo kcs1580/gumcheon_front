@@ -375,12 +375,22 @@ export default new Vuex.Store({
           .login({ id, pw })
           .then(resp => {
           
-            const token = resp.data.token;
             
+
+            if(resp.data.rscode != "0"){
+              commit("AUTH_ERROR");
+              this.state.token = "";
+
+            }
+            else{
+            const token = resp.data.token;
+
             commit("AUTH_SUCCESS", { token});
             // dispatch("USER_REQUEST")
 
-            resolve(resp);
+            
+          }
+          resolve(resp);
           })
           .catch(err => {
             commit("AUTH_ERROR", err);

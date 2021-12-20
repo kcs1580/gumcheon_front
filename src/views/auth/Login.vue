@@ -231,26 +231,49 @@ export default {
     };
   },
   methods: {
+    //페이지이동
     gotoUrl(toUrl) {
       if (toUrl === this.$route.path) {
         location.reload();
       } else this.$router.push(toUrl);
     },
-    undone() {
-      alert("구현중인 기능입니다.");
-    },
+    
     //로그인
     login(id, pw) {
       // LOGIN 액션 실행
       this.$store
         .dispatch("AUTH_REQUEST", { id, pw })
-        .then((res) => {
-          this.$router.go(-1);
+        .then((resp) => {
+          let rscode = resp.data.rscode
+          
+          //아이디 비밀번호 잘못
+        if(rscode == "1"){
+        alert("아이디 혹은 비밀번호가 잘못 입력되었습니다.")
+            console.log(resp.data.rscode)
+          }
+          //비밀번호 초기화 신청 상태입니다. 시스템관리자에게 문의하세요.
+          else if(rscode == "2"){
+                    alert("비밀번호 초기화 신청 상태입니다. 시스템관리자에게 문의하세요.")
+
+            console.log(resp.data.rscode)
+          }
+          //
+          else if(rscode == "3"){
+            this.dialog = false;
+            console.log(resp.data.rscode)
+          }
+          //로그인 성공
+          else{
+             this.$router.go(-1);
+          }
+
+        
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    //회원가입
     signup(id, user_nm, pw) {
       this.user.id = id;
       this.user.user_nm = user_nm;

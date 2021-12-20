@@ -8,18 +8,9 @@ export default {
       method: "get"
     });
   },
-  //로그인
-  // login(data) {
-  //   return api({
-  //     url: "/uat/uia/actionLogin.do",
-  //     method: "post",
-  //     data: { id: data.id, password: data.password }
-  //   });
-  // },
-
   login(user) {
     return api({
-      url: "/v1/sign/signin",
+      url: "/v1/sign/login",
       method: "post",
       data: { id: user.id, pw: user.pw }
     });
