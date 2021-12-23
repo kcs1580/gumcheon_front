@@ -1,6 +1,39 @@
 import api from "@/api/index.js";
 //인증 관련 api
 export default {
+  login(user) {
+    return api({
+      url: "/v1/auth/login",
+      method: "post",
+      data: { id: user.id, pw: user.pw }
+    });
+  },
+
+  pwInitApply(user) {
+    return api({
+      url: "/v1/auth/pwInitApply",
+      method: "post",
+      data: { id: user.aplyId, userOgdp: user.userOgdp, userTeam: user.userTeam, userTelno: user.userTelno }
+    });
+  },
+
+  changePw(user) {
+    return api({
+      url: "/v1/auth/chPw",
+      method: "post",
+      data: {id: user.id, pw: user.chPw}
+    });
+  },
+
+  isUser(user){
+    return api({
+      url: "/v1/auth/isUser",
+      method: "post",
+      data: { id: user.id, pw: user.prPw }
+    });
+  },
+ 
+ 
   //토큰 유효확인
   tokenCheck() {
     return api({
@@ -8,14 +41,7 @@ export default {
       method: "get"
     });
   },
-  login(user) {
-    return api({
-      url: "/v1/sign/login",
-      method: "post",
-      data: { id: user.id, pw: user.pw }
-    });
-  },
-
+ 
   //로그아웃
   logout() {
     return api({

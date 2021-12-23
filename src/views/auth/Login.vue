@@ -1,8 +1,7 @@
 <template>
   <!-- 로그인 페이지 -->
   <div style="text-align: center">
-    <v-dialog v-model="dialog" max-width="321">
-      <template v-slot:activator="{ on, attrs }">
+    
         <v-card
           flat
           width="375px"
@@ -27,6 +26,8 @@
               "
             >
               <v-text-field
+              id="id"
+              ref="id"
                 style="margin: 0px; padding: 0px"
                 height="49px"
                 placeholder="아이디를 입력해주세요"
@@ -35,6 +36,9 @@
                 flat
               />
               <v-text-field
+              id="pw"
+                            ref="pw"
+
                 style="margin: 0px; padding: 0px"
                 flat
                 clearable
@@ -47,6 +51,7 @@
             </div>
 
             <v-btn
+            id="btn_lgn"
               @click="login(id, pw)"
               rounded
               height="52"
@@ -63,10 +68,9 @@
               >
             </div>
 
-            <v-btn
-              v-bind="attrs"
-              v-on="on"
-              @click="signup(id, user_nm, pw), (dialog = false)"
+            <v-btn id="btn_init"
+         
+              @click="(aplyId='',userOgdp='',userTeam='',userTelno='', dialog = true)"
               rounded
               height="52"
               width="291"
@@ -79,42 +83,41 @@
           </div>
           <footerbar />
         </v-card>
-      </template>
+
+
+        <v-dialog v-model="dialog" max-width="321">
       <v-card rounded="xl" width="321px">
         <v-row no-gutters align="center" justify="center">
           <div
             class="dialog-input"
             style="width: 261px; display: inline-block; margin-top: 23px"
           >
-            <v-text-field
+            <v-text-field id="aplyId" ref="aplyId"
               height="34px"
               placeholder="아이디를 입력해주세요"
               hide-details
-              v-model="id"
+              v-model="aplyId"
             />
-            <v-text-field
-              clearable
+            <v-text-field id="userOgdp" ref="userOgdp"
+              
               height="34px"
               hide-details
               placeholder="소속부서를 입력해주세요"
-              v-model="pw"
-              type="password"
+              v-model="userOgdp"
             />
-            <v-text-field
-              clearable
+            <v-text-field id="userTeam" ref="userTeam"
+              
               height="34px"
               hide-details
               placeholder="소속팀을 입력해주세요"
-              v-model="pw"
-              type="password"
+              v-model="userTeam"
             />
-            <v-text-field
-              clearable
+            <v-text-field id="userTelno" ref="userTelno"
+              
               height="34px"
               hide-details
               placeholder="직통 전화번호를 입력해주세요"
-              v-model="pw"
-              type="password"
+              v-model="userTelno"
             />
           </div>
           <div style="width: 273px; margin-top: 24px" class="reset-detail-box">
@@ -124,58 +127,57 @@
 
           <!-- 하단 버튼 -->
 
-          <v-btn
+          <v-btn id="btn_init_aply"
             style="margin-top: 26px; margin-bottom: 29px"
-            @click="signup(id, user_nm, pw)"
+            @click="pwInitApply(aplyId, userOgdp, userTeam, userTelno)"
             rounded
             height="49"
             width="266"
             color="#0276F9"
             ><div
-              v-bind="attrs"
-              v-on="on"
               class="login-btn white--text"
-              @click="dialog = false"
             >
               비밀번호 초기화 신청
             </div></v-btn
-          >
+          >    
+
         </v-row>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="dialog2" max-width="321">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
-          비밀번호 재설정
-        </v-btn>
-      </template>
+     
       <v-card rounded="xl" width="321px">
         <v-row no-gutters align="center" justify="center">
           <div
             class="dialog-input"
             style="width: 261px; display: inline-block; margin-top: 23px"
           >
-            <v-text-field
+            <v-text-field id="prPw"
+            ref="prPw"
               height="34px"
               placeholder="기존 비밀번호를 입력해주세요"
               hide-details
-              v-model="id"
+              v-model="prPw"
+              type="password"
+
             />
-            <v-text-field
+            <v-text-field id="chPw"
+            ref="chPw"
               clearable
               height="34px"
               hide-details
               placeholder="변경할 비밀번호를 입력해주세요"
-              v-model="pw"
+              v-model="chPw"
               type="password"
             />
-            <v-text-field
+            <v-text-field id="chPw2"
+            ref="chPw2"
               clearable
               height="34px"
               hide-details
               placeholder="변경할 비밀번호를 한번 더 입력해주세요"
-              v-model="pw"
+              v-model="chPw2"
               type="password"
             />
           </div>
@@ -186,18 +188,16 @@
 
           <!-- 하단 버튼 -->
 
-          <v-btn
+          <v-btn id="btn_ch"
             style="margin-top: 26px; margin-bottom: 29px"
-            @click="signup(id, user_nm, pw)"
+            @click="changePw(id, prPw, chPw)"
             rounded
             height="49"
             width="266"
             color="#0276F9"
             ><div
-              v-bind="attrs"
-              v-on="on"
+             
               class="login-btn white--text"
-              @click="dialog = false"
             >
               비밀번호 변경
             </div></v-btn
@@ -212,6 +212,7 @@
 import { headerbar, footerbar } from "@/views/user";
 
 import userApi from "@/api/user.js";
+import authApi from "@/api/auth.js";
 export default {
   components: { headerbar, footerbar },
 
@@ -222,8 +223,15 @@ export default {
         pw: "",
         user_nm: "",
       },
+      aplyId:'',
+      userOgdp:'',
+      userTeam:'',
+      userTelno:'',
       id: "",
       pw: "",
+      prPw:"",
+      chPw:"",
+      chPw2:"",
       user_nm: "",
       msg: "",
       dialog: false,
@@ -231,6 +239,99 @@ export default {
     };
   },
   methods: {
+    //비밀번호 초기화 신청
+    pwInitApply(aplyId, userOgdp,userTeam,userTelno){
+     if(aplyId ==""){
+  alert('아이디가 입력되지 않았습니다.')
+  this.$nextTick(this.$refs.aplyId.focus());
+}
+else if(userOgdp==""){
+alert('비밀번호가 입력되지 않았습니다.')
+  this.$nextTick(this.$refs.userOgdp.focus());
+}else if(userTeam==""){
+alert('비밀번호가 입력되지 않았습니다.')
+   this.$nextTick(this.$refs.userTeam.focus());
+}else if(userTelno==""){
+alert('비밀번호가 입력되지 않았습니다.')
+   this.$nextTick(this.$refs.userTelno.focus());
+}else{
+
+  authApi
+        .pwInitApply({aplyId, userOgdp,userTeam,userTelno})
+        .then((res) => {         
+           if(res.data.rscode == "1"){
+        alert(res.data.message)
+          }else{
+ this.dialog=false
+         alert(res.data.message)
+
+          }
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+}
+    },
+
+     //비밀번호 변경
+     changePw(id, prPw, chPw){
+     if(this.prPw ==""){
+  alert('기존 비밀번호가 입력되지 않았습니다.')
+  this.$nextTick(this.$refs.prPw.focus());
+}
+else if(this.chPw==""){
+alert('변경할 비밀번호가 입력되지 않았습니다.')
+  this.$nextTick(this.$refs.chPw.focus());
+}else if(this.chPw2==""){
+alert('변경할 비밀번호2가 입력되지 않았습니다.')
+  this.$nextTick(this.$refs.chPw2.focus());
+}else{
+
+  if(this.chPw != this.chPw2){
+this.$refs.chPw.focus();
+this.chPw=""
+this.chPw2=""
+
+}
+
+else{
+
+ authApi
+        .isUser({id,prPw})
+        .then((res) => {         
+          if(res.data.rscode == "1"){
+alert(res.data.message)
+this.dialog2 = false;
+return
+}
+
+authApi
+        .changePw({id, chPw})
+        .then((res) => {         
+           if(res.data.rscode == "1"){
+        alert(res.data.message)
+          }else{
+ this.dialog2=false
+         alert(res.data.message)
+
+          }
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+
+
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+
+}
+  
+}
+    },
+
+
     //페이지이동
     gotoUrl(toUrl) {
       if (toUrl === this.$route.path) {
@@ -240,6 +341,17 @@ export default {
     
     //로그인
     login(id, pw) {
+
+      if(id ==""){
+  alert('아이디가 입력되지 않았습니다.')
+  this.$refs.id.focus();
+}
+else if(pw==""){
+alert('비밀번호가 입력되지 않았습니다.')
+  this.$refs.pw.focus();
+
+}
+else{
       // LOGIN 액션 실행
       this.$store
         .dispatch("AUTH_REQUEST", { id, pw })
@@ -249,32 +361,47 @@ export default {
           //아이디 비밀번호 잘못
         if(rscode == "1"){
         alert("아이디 혹은 비밀번호가 잘못 입력되었습니다.")
-            console.log(resp.data.rscode)
+        this.pw = ""
           }
           //비밀번호 초기화 신청 상태입니다. 시스템관리자에게 문의하세요.
           else if(rscode == "2"){
-                    alert("비밀번호 초기화 신청 상태입니다. 시스템관리자에게 문의하세요.")
+            alert("비밀번호 초기화 신청 상태입니다. 시스템관리자에게 문의하세요.")
+            this.pw = ""
 
-            console.log(resp.data.rscode)
+
           }
           //
           else if(rscode == "3"){
-            this.dialog = false;
-            console.log(resp.data.rscode)
+             alert("비밀번호 초기화가 필요합니다.")
+                    this.pw = ""
+                    this.prPw =""
+                    this.chPw =""
+                    this.chPw2=""
+
+            this.dialog2 = true;
           }
           //로그인 성공
           else{
-             this.$router.go(-1);
+             this.$router.push("/");
           }
 
-        
         })
         .catch((error) => {
-          console.log(error);
-        });
+          console.log(error)
+                });}
     },
+
+ 
+
     //회원가입
     signup(id, user_nm, pw) {
+if(id ==""){
+  alert('아이디가 입력되지 않았습니다.')
+}
+else if(pw==""){
+alert('비밀번호가 입력되지 않았습니다.')
+}
+else{
       this.user.id = id;
       this.user.user_nm = user_nm;
       this.user.pw = pw;
@@ -290,6 +417,7 @@ export default {
         .catch((res) => {
           console.log(res);
         });
+}
     },
   },
 };
