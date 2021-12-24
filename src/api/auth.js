@@ -1,6 +1,14 @@
 import api from "@/api/index.js";
 //인증 관련 api
 export default {
+   //회원가입 요청
+   signup(user) {
+    return api({
+      url: `v1/sign/signup`,
+      method: "post",
+      data: user
+    });
+  },
   login(user) {
     return api({
       url: "/v1/auth/login",

@@ -3,7 +3,8 @@
     <router-view></router-view>
   </v-app>
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js"></script>
+<script>
+</script>
 
 <script>
 export default {
