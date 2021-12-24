@@ -25,7 +25,6 @@
 
 <script>
 
-import communityApi from "@/api/community.js";
 
 export default {
   name: "Home",

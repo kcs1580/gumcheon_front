@@ -36,7 +36,7 @@
       <v-row class="community-bottom">
         <v-spacer></v-spacer>
         <div @click="gotolist">
-          <Button
+          <v-btn
             style="margin-right:10px;"
             class="btn-border btn-content-color"
             color="#999999"
@@ -63,12 +63,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Button from "@/components/Button.vue";
-import Reply from "@/components/Reply.vue";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import { Viewer } from "@toast-ui/vue-editor";
-import communityApi from "@/api/community.js";
+
 
 export default {
   name: "Home",

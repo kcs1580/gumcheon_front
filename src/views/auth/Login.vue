@@ -211,7 +211,6 @@
 <script>
 import { headerbar, footerbar } from "@/views/user";
 
-import userApi from "@/api/user.js";
 import authApi from "@/api/auth.js";
 export default {
   components: { headerbar, footerbar },

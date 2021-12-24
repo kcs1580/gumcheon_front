@@ -63,9 +63,9 @@
         >
           <v-row no-gutters align="center" justify="space-between">
             <div style="font-weight: bold; font-size: 20px">공지사항</div>
-            <button text>
+            <v-btn text>
               <v-icon>mdi-plus</v-icon>
-            </button>
+            </v-btn>
           </v-row>
           <v-divider style="margin-top: 12px" />
           <v-data-table
@@ -91,9 +91,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-
-import botApi from "@/api/bot.js";
-import userApi from "@/api/user.js";
 
 export default {
   components: { mapMutations },

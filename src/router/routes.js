@@ -25,7 +25,7 @@ const report = () => import("@/views/user/report.vue");
 
 
 //관리자 페이지 메인
-const amain = () => import("@/views/admin/amian.vue");
+const amain = () => import("@/views/admin/amain.vue");
 
 
 

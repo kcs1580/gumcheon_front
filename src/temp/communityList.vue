@@ -82,9 +82,6 @@
 
 <script>
 // import Button from '@/components/Button.vue'
-import DataTable from "@/components/DataTable.vue";
-import Pagination from "@/components/Pagination.vue";
-import communityApi from "@/api/community.js";
 
 export default {
   name: "Home",

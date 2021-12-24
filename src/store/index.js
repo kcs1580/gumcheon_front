@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import authApi from "@/api/auth.js";
-import userApi from "@/api/user.js";
 
 Vue.use(Vuex);
 

@@ -36,7 +36,7 @@
             style="padding-left: 0px; padding-right: 5px; pointer-events: none"
           >
             <v-avatar height="33" width="33" left>
-              <img src="@/assets/img/user.png" /> </v-avatar
+              <img src="@/assets/img/gfmc_ci.png" /> </v-avatar
             ><span class="userInfoTag">{{ getuserNm }}</span></v-btn
           >
         </v-row>
@@ -50,10 +50,10 @@
       <div v-else>
         <v-list>
           <v-list-item @click="$router.push('/register')">
-            <v-list-item-title>{{ $t("nav.signup") }}</v-list-item-title>
+            <v-list-item-title>회원가입</v-list-item-title>
           </v-list-item>
           <v-list-item @click="toLogin" link>
-            <v-list-item-title>{{ $t("nav.login") }}</v-list-item-title>
+            <v-list-item-title>로그인</v-list-item-title>
           </v-list-item>
         </v-list>
       </div>
@@ -75,13 +75,11 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Button from "@/components/Button.vue";
 
 export default {
   components: {
     mapGetters,
     mapActions,
-    Button,
   },
   data() {
     return {

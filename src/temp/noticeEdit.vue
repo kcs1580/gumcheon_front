@@ -103,12 +103,6 @@
 
 <script>
 // @ is an alias to /src
-import Button from "@/components/Button.vue";
-import "codemirror/lib/codemirror.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/vue-editor";
-import communityApi from "@/api/community.js";
-import fileApi from "@/api/file.js";
 
 export default {
   components: { Button, editor: Editor },

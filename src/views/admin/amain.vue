@@ -92,9 +92,6 @@
 <script>
 import { mapMutations } from "vuex";
 
-import botApi from "@/api/bot.js";
-import userApi from "@/api/user.js";
-
 export default {
   components: { mapMutations },
   methods: {
