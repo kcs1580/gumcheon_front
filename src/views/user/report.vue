@@ -137,76 +137,12 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 
 
 export default {
-  components: { mapMutations },
+  
   methods: {
-    //Vuex Helper Mutations
-    ...mapMutations(["SET_BUSINESSCATEGORYLIST", "SET_ALLJOBCATEGORYLIST"]),
-    getBotList() {
-      botApi
-        .listBot({ itemCnt: 8, startId: 0 })
-        .then((res) => {
-          this.mainList1 = res.data.list;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getBotList2() {
-      botApi
-        .listBot({ itemCnt: 8, startId: 0, jobCategoryList: [10] })
-        .then((res) => {
-          this.mainList2 = res.data.list;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getBotCount() {
-      botApi
-        .getBotCount()
-        .then((res) => {
-          this.botCount = res.data.total;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getUserCount() {
-      userApi
-        .getUserCount()
-        .then((res) => {
-          this.userCount = res.data.totalUserCount;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    getRecommend() {
-      this.$router.push("/bot");
-      this.SET_BUSINESSCATEGORYLIST([10]);
-    },
-    setCategory() {
-      this.SET_BUSINESSCATEGORYLIST([10]);
-    },
-    getCategory() {
-      botApi
-        .getBotCount()
-        .then((res) => {
-          this.jobCategory.content = res.data.jobCategoryList;
-          this.jobCategory.total = res.data.jobCategoryListTotal;
-
-          this.SET_ALLJOBCATEGORYLIST(this.jobCategory.content);
-          this.getBotList();
-          this.getBotList2();
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
+   
   },
   data() {
     return {
@@ -259,16 +195,7 @@ export default {
           flex: 6,
         },
       ],
-      mainCategory: [],
-      mainList1: [],
-      mainList2: [],
-      botCount: 0,
-      userCount: 0,
-      jobCategory: {
-        title: "카테고리",
-        content: [{ categoryName: "" }],
-        total: "",
-      },
+     
     };
   },
   created() {},
@@ -277,78 +204,4 @@ export default {
 </script>
 
 <style lang="scss">
-#chip.v-chip.complete {
-  background: #00cc00;
-}
-#chip.v-chip.ongoing {
-  background: #0099ff;
-}
-#chip.v-chip.overdue {
-  background: #ff0000;
-}
-
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
-  height: 40px !important;
-}
-.main-btn {
-  border-radius: 12px;
-  font-size: 18px;
-}
-.sub-text {
-  width: 100%;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  font-weight: bold;
-  color: black;
-  span {
-    color: #d70000;
-  }
-}
-.upper {
-  /* background-image: linear-gradient(to bottom right, #182E75, #5A4B79); */
-
-  .banner-frame {
-    /* padding-top: 20px; */
-    padding-bottom: 20px;
-  }
-}
-.searchFrame {
-  width: 100%;
-  max-width: 1180px;
-  margin-top: -82px;
-  background-color: white;
-}
-
-.firstFloor {
-  margin-top: 50px;
-  width: 100%;
-
-  .firstFloor-title {
-    margin-bottom: 20px;
-    padding: 0px 10px 0px 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 24px;
-  }
-}
-.secondFloor {
-  margin-top: 50px;
-  width: 100%;
-
-  .secondloor-title {
-    margin-bottom: 20px;
-    padding: 0px 10px 0px 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 24px;
-  }
-}
-.main-background {
-  background-color: #f6fafd;
-}
-.card-divider {
-  margin-top: 60px;
-}
 </style>
