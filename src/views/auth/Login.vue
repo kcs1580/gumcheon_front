@@ -209,7 +209,7 @@
 </template>
 
 <script>
-import { headerbar, footerbar } from "@/views/user";
+import { headerbar, footerbar } from "@/views/";
 
 import authApi from "@/api/auth.js";
 export default {

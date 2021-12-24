@@ -1,6 +1,8 @@
 <template>
   <!-- footer -->
-  <v-footer color="white" class="footer-box">
+  
+  <v-footer  color="white" class="footer-box">  
+<v-container style="max-width:1200px">
     <v-row no-gutters justify="space-between" align="end">
       <v-col cols="6">
         <p class="text-left">
@@ -24,7 +26,8 @@
           Copyright 2021 서울시금천구시설관리공단 All Rights Reserved
         </p>
       </v-col>
-    </v-row>
+    </v-row> 
+</v-container>
   </v-footer>
 </template>
 

@@ -26,7 +26,11 @@ const report = () => import("@/views/user/report.vue");
 
 //관리자 페이지 메인
 const amain = () => import("@/views/admin/amain.vue");
+//공통코드 페이지
+const commonCode = () => import("@/views/admin/commonCode.vue");
 
+//메뉴권한설정 페이지
+const menuSetting = () => import("@/views/admin/menuSetting.vue");
 
 
 //404 notfound 페이지
@@ -53,7 +57,7 @@ const requireRole = (userrole) => (from, to, next) => {
 const routes = [
   {
     //업무용 페이지
-    path: "/admin",
+    path: "/",
     component: admin,
     children: [
       {
@@ -61,6 +65,16 @@ const routes = [
         path: "",
         component: amain,
         name: "amain",
+      }, {
+        //공통코드 페이지
+        path: "commoncode",
+        component: commonCode,
+        name: "commonCode",
+      }, {
+        //메뉴 권한설정 페이지
+        path: "menusetting",
+        component: menuSetting,
+        name: "menuSetting",
       },
       ,
       
@@ -68,7 +82,7 @@ const routes = [
   },
   {
     //사용자 페이지
-    path: "/",
+    path: "/user",
     component: user,
     children: [
       {

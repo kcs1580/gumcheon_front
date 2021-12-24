@@ -1,11 +1,10 @@
-<!-- 사용자 메인 페이지 -->
+<!-- 메뉴 권한설정 페이지 -->
 
 
 <template>
   <div>
-      <div style="font-weight: bold; font-size: 30px; margin-top:50px; margin-bottom:40px">
-            접수 / 처리현황
-          </div>
+      <div style="font-weight: bold; font-size: 30px">
+메뉴 권한설정          </div>
     <v-row  style="
               border: 0.8px solid #cbcccc;
               box-sizing: border-box;
@@ -15,28 +14,25 @@
             " align="center" justify="center">
        
       <v-col  class="text-center" v-for="item in items" v-bind:key="item.title" md="4" sm="12" cols="12"  >
-        <v-row>
         <v-card   style="margin: 0 auto"    
          
           flat
          
         >
-        <v-card-title><div style="font-size:100px; margin:30px">
-            {{item.value}}</div>
-      
-        </v-card-title>        <v-card-text>
-
-         <div style="font-size:20px; margin:10px">     {{item.title}}
-       </div>  </v-card-text>  
+        <v-card-title >
+           <div>{{item.title}}</div>
+        </v-card-title>
+        <v-card-text>
+            {{item.value}}
+        </v-card-text>
         </v-card>
-        </v-row>
       </v-col> 
     </v-row>
 
-    <v-row no-gutters align="center" justify="space-between" style="font-weight: bold; font-size: 30px; margin-top:100px; margin-bottom:40px">
+    <v-row no-gutters align="center" justify="space-between" style="font-weight: bold; font-size: 30px">
             <div >공지사항</div>
             <button>
-              <v-icon large>mdi-plus</v-icon>
+              <v-icon>mdi-plus</v-icon>
             </button>
           </v-row>
        <v-row  style="
@@ -92,7 +88,7 @@ export default {
           text: "regDate",
           align: "end",
           sortable: false,
-          value: "regDate", 
+          value: "regDate",
         },
       ],
       articles:[{

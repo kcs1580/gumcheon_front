@@ -1,65 +1,27 @@
 <template>
   <!-- 사용자 페이지 레이아웃 -->
 
-  <div>
-    <headerbar />
-
-  
+  <div >
+    <aheaderbar />
+<v-main>
+  <v-container style="max-width:1200px "  > 
     <router-view></router-view>
-
-  <!-- footer -->
-  <v-footer padless>
-    <v-card flat title width="100%" class="lighten-1 white--text align-center text-center re_footer" height="140" padless>
- <v-card-text class='policyWrap'>
-    
-<v-row align-center justify-space-between >
-  <v-col>
-  <a href='http://www.gfmc.kr/privacy.html'>개인정보처리방침</a>
-	<a href='http://www.gfmc.kr/government04.html'>경영공시</a>
- 	<a href='http://www.gfmc.kr/intro02.html'>미션·비전·가치</a>
- <a href='http://www.gfmc.kr/certification.html'>인증서 및 표창장 안내</a>
-  	<a href='http://www.gfmc.kr/viewer.html'>뷰어다운로드</a>
- 	<a href='http://www.gfmc.kr/related.html'>관련사이트</a>
-  </v-col>
-</v-row>
-		
-	
-	
- </v-card-text>
-  <v-divider></v-divider>
-
- <v-card-text>
-    
-			<img src='http://www.gfmc.kr/images/renu_main/logo4.png' alt='금천구 시설관리 공단 logo' class='logo_gray'/>
- 
- </v-card-text>
- <v-card-text>
-				<span>서울시 금천구 시흥대로 37길 18 (시흥동) (우 08638)</span><span>전화 02)809-0061~7</span><span>팩스 02)809-1471~2</span><br>
-				<span>사업자명 : 금천구시설관리공단</span><span>대표 : 박 평</span><span>사업자등록번호 : 119-82-03909</span><br>
-				<span>Copyright 2018 서울시금천구시설관리공단.</span><span>All Rights Reserved.</span>
-		
- <v-card-text> </v-card-text>
-			<img src='http://www.gfmc.kr/images/renu_main/logo5.png' alt='금천구 시설관리 공단 logo' class='rightside'/>
-	
- </v-card-text>
-  
-
-    </v-card>
-  </v-footer>
+  </v-container>
+</v-main>
+    <footerbar />
   </div>
 </template>
 
 <script>
-
+import { footerbar,aheaderbar } from "@/views/";
 export default {
+  components: { aheaderbar, footerbar },
   data() {
     return {
-      drawer: true
+      drawer: true,
     };
   },
-  computed: {
-    
-  },
-  created() {}
+  computed: {},
+  created() {},
 };
 </script>

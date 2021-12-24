@@ -1,26 +1,52 @@
 <template>
   <!-- header -->
-  <div style="height=72px">
-    <v-app-bar flat color="#0276F9" class="protect-header-frame">
-      <v-layout
-        justify-space-between
-        class="d-flex align-center protect-header"
-      >
-        <div class="left-side">
+  <div >
+    <v-app-bar app  dark flat color="#0276F9" >
+  <v-spacer class="d-none d-md-block"></v-spacer>
+     <v-app-bar-title>
+            <button><v-img width="229px" @click="gotoUrl('/')" src="@/assets/img/gfmc_ci.png" /></button>
+          </v-app-bar-title>
           <!-- gfmc 로고 -->
-          <div class="title" style="width: 174px" @click="gotoUrl('/')">
-            <v-img height="28px" src="@/assets/img/gfmc_ci.png" />
-          </div>
+        
+        <v-spacer  ></v-spacer>
+        <div class="d-none d-md-block">
+        <v-menu content-class="elevation-1" tile open-on-hover 
+      down
+      offset-y v-for="menu in menus" :key="menu.title">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn height="64px"  text color="white" v-bind="attrs" v-on="on">
+            {{menu.title}}
+          </v-btn>
+        </template>
+        <v-list >  <v-list-item v-for="item in menu.items" :key="item.title" @click="gotoUrl(item.link)" >
+          <button id="sub-btn"    >
+         
+            <v-list-item-title > 
+             {{item.title}}
+              </v-list-item-title>
+          </button></v-list-item>
+        </v-list>
+      </v-menu>
+<v-btn v-if="getToken" text @click="drawer=!drawer">
+              <v-icon>mdi-account-circle-outline</v-icon>
+            {{ getuserNm }}</v-btn>
+
+            <v-btn v-else @click="toLogin" text>
+              <v-icon>mdi-login</v-icon>
+            로그인</v-btn>
         </div>
-      </v-layout>
       <!-- 네비게이션 드로어 아이콘 -->
-      <v-app-bar-nav-icon
-        style="color: white !important"
+      <v-app-bar-nav-icon class="d-md-none"
+    
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
+  <v-spacer class="d-none d-md-block"></v-spacer>
+
     </v-app-bar>
+
+
     <!-- 네비게이션 드로어 -->
-    <v-navigation-drawer
+    <v-navigation-drawer  app
       temporary
       v-model="drawer"
       absolute
@@ -29,21 +55,13 @@
     >
       <div v-if="getToken">
         <v-row class="mt-3" no-gutters justify="center">
-          <v-btn
-            color="white"
-            height="36px"
-            rounded
-            style="padding-left: 0px; padding-right: 5px; pointer-events: none"
-          >
-            <v-avatar height="33" width="33" left>
-              <img src="@/assets/img/gfmc_ci.png" /> </v-avatar
-            ><span class="userInfoTag">{{ getuserNm }}</span></v-btn
-          >
+          <v-icon>mdi-account-circle-outline</v-icon>
+            {{ getuserNm }}
         </v-row>
 
         <v-list>
           <v-list-item link @click="logout">
-            <v-list-item-title>로그 아웃</v-list-item-title>
+            <v-list-item-title><v-icon>mdi-logout</v-icon>로그 아웃</v-list-item-title>
           </v-list-item>
         </v-list>
       </div>
@@ -91,10 +109,10 @@ export default {
       locale: "ko",
       //네비게이션 메뉴 리스트
       menus: [
-        { title: "불편접수", link: "/" },
-        { title: "내 정보관리", link: "/" },
-        { title: "접수 및 처리 현황", link: "/" },
-        { title: "공지사항", link: "/notice" },
+        { title: "기초설정", items:[{title:"공통코드설정", link: "/commoncode" },{title:"메뉴권한설정", link: "/menusetting"},{title:"담당자계정 관리", link: "/"},{title:"사용자계정 관리", link: "/"}]},
+        { title: "시설물관리", link: "/",items:[{title:"시설물관리"},{title:"시설물관리2"}] },
+        { title: "게시물관리", link: "/" ,items:[{title:"공지사항 관리"},{title:"자주 묻는 질문 관리"},{title:"팝업 관리"}]},
+        { title: "접수/처리", link: "/notice",items:[{title:"접수대기 및 현황"},{title:"처리대기 및 현황"}] },{ title: "보고서", link: "/notice",items:[{title:"불편사항처리"},{title:"결합 점검/보수내역"},{title:"외주공사 내역"},{title:"점검보수 절감내역"}] },
       ],
     };
   },
@@ -141,78 +159,18 @@ export default {
 </script>
 
 <style lang="scss">
-.protect-header-frame {
-  position: fixed;
-  .v-toolbar__content {
-    justify-content: center;
-  }
-  .protect-header {
-    max-width: 1180px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 
-    .left-side {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      .title {
-        cursor: pointer;
-        margin-right: 60px;
-      }
-      .menus {
-        margin-right: 40px;
-        font-size: 19px;
-      }
-      .menu-btn {
-        color: black;
-        cursor: pointer;
-      }
-    }
-    .right-side {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      font-size: 12px;
-      .apply-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 15px;
-        background-color: white;
-        color: black;
-        width: 100px;
-        height: 25px;
-      }
-      .login-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ec705b;
-        width: 100px;
-        height: 25px;
-        border-radius: 25%;
-      }
-    }
-  }
+#sub-btn:hover{
+  color: #0276F9;
+;
 }
+
 .logoutchip {
   margin-left: 10px;
   margin-right: 10px;
   padding-left: 15px;
   padding-right: 15px;
 }
-.userInfoTag {
-  width: 80px;
-  padding: 5px;
-  padding-right: 10px;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-}
-.v-list-item--dense,
-.v-list--dense .v-list-item {
-  min-height: 25px;
-}
+
+
 </style>

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { headerbar, footerbar } from "@/views/user";
+import { headerbar, footerbar } from "@/views/";
 export default {
   components: { headerbar, footerbar },
   data() {

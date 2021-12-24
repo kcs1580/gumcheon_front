@@ -4,7 +4,7 @@
 <template>
   <div>
       <div style="font-weight: bold; font-size: 30px; margin-top:50px; margin-bottom:40px">
-            접수 / 처리현황
+            공통코드
           </div>
     <v-row  style="
               border: 0.8px solid #cbcccc;
