@@ -82,7 +82,7 @@ const routes = [
   },
   {
     //사용자 페이지
-    path: "/user",
+    path: "/user", 
     component: user,
     children: [
       {
@@ -90,9 +90,9 @@ const routes = [
         path: "",
         component: main,
         name: "main",
-      }, //불편접수
-      { path: "/report", component: report, name: "report" },
-      ,
+      }, //불편접수 + fid
+      { path: "/report/:fid", component: report, name: "report" },
+      { path: "/report/", component: report, name: "report" },
       {
         //공지사항
         path: "/notice",

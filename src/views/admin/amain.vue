@@ -51,9 +51,8 @@
           flat
           style="margin:0 auto"
         >
-         
-          <v-data-table
-           
+
+          <v-data-table            
             hide-default-header
             hide-default-footer
             :headers="headers"
