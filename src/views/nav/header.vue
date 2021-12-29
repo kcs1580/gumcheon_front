@@ -1,5 +1,5 @@
 <template>
-  <!-- header -->
+  <!--사용자 페이지 header -->
   <div style="height=72px">
     <v-app-bar flat color="#0276F9" class="protect-header-frame">
       <v-layout
@@ -65,12 +65,7 @@
           v-for="(item, i) in menus"
           :key="i"
         >
-          <v-list-item-title>
-           
-
-
-           
-          </v-list-item-title>
+          <v-list-item-title> </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -85,11 +80,12 @@ export default {
     mapActions,
   },
   data() {
-    return {  items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
+    return {
+      items: [
+        { title: "Click Me" },
+        { title: "Click Me" },
+        { title: "Click Me" },
+        { title: "Click Me 2" },
       ],
       //네비게이션 드로어 스위치
       drawer: false,
@@ -99,9 +95,9 @@ export default {
       locale: "ko",
       //네비게이션 메뉴 리스트
       menus: [
-        { title: "불편접수", link: "/" },
-        { title: "내 정보관리", link: "/" },
-        { title: "접수 및 처리 현황", link: "/" },
+        { title: "불편접수", link: "/report" },
+        { title: "내 정보관리", link: "/user" },
+        { title: "접수 및 처리 현황", link: "/user" },
         { title: "공지사항", link: "/notice" },
       ],
     };
@@ -124,11 +120,11 @@ export default {
     },
     //로그아웃
     logout() {
-      this.AUTH_LOGOUT().then(() => this.gotoUrl("/"));
+      this.AUTH_LOGOUT().then(() => this.gotoUrl("/user"));
     },
     //로그인 페이지로 이동
     toLogin() {
-      this.$router.push("/login");
+      this.$router.push("/loginUser");
     },
     //locale 한국어로 변경
     korean() {
@@ -148,79 +144,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.protect-header-frame {
-  position: fixed;
-  .v-toolbar__content {
-    justify-content: center;
-  }
-  .protect-header {
-    max-width: 1180px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .left-side {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      .title {
-        cursor: pointer;
-        margin-right: 60px;
-      }
-      .menus {
-        margin-right: 40px;
-        font-size: 19px;
-      }
-      .menu-btn {
-        color: black;
-        cursor: pointer;
-      }
-    }
-    .right-side {
-      display: flex;
-      align-items: center;
-      flex-direction: row;
-      font-size: 12px;
-      .apply-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 15px;
-        background-color: white;
-        color: black;
-        width: 100px;
-        height: 25px;
-      }
-      .login-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #ec705b;
-        width: 100px;
-        height: 25px;
-        border-radius: 25%;
-      }
-    }
-  }
-}
-.logoutchip {
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-.userInfoTag {
-  width: 80px;
-  padding: 5px;
-  padding-right: 10px;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-}
-.v-list-item--dense,
-.v-list--dense .v-list-item {
-  min-height: 25px;
-}
-</style>
+<style lang="scss"></style>

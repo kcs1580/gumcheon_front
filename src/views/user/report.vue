@@ -1,6 +1,5 @@
 <!--사용자 불편접수 신청 페이지 -->
 
-
 <template>
   <v-container fluid height>
     <v-row no-gutters align="center" justify="center">
@@ -39,8 +38,12 @@
               시설</v-col
             >
             <v-col cols="9" style="margin-bottom: 20px">
-              <v-chip-group active-class="primary--text" column>
-                <!-- <v-chip
+              <v-chip-group
+                v-model="cgroup"
+                active-class="primary--text"
+                column
+              >
+                <v-chip
                   text-color="black"
                   outlined
                   label
@@ -49,8 +52,7 @@
                   :key="tag"
                 >
                   {{ tag }}
-                </v-chip> -->
-                <v-chip>{{fid}}</v-chip>
+                </v-chip>
               </v-chip-group>
             </v-col>
           </v-row>
@@ -60,6 +62,7 @@
             <v-col style="font-weight: 500; font-size: 18px">기관명</v-col>
             <v-col cols="12">
               <v-select
+                v-model="fid"
                 :items="faci"
                 placeholder="기관명을 선택해주세요."
                 dense
@@ -100,13 +103,9 @@
           <v-row no-gutters align="center" justify="space-between">
             <v-col style="font-weight: 500; font-size: 18px">사진 첨부</v-col>
             <v-col cols="12">
-              <v-text-field
-                :items="faci"
+              <v-file-input
                 placeholder="53mb 이하의 파일만 가능합니다."
-                dense
-                outlined
-              ></v-text-field>
-              <v-file-input></v-file-input>
+              ></v-file-input>
             </v-col>
           </v-row>
           <div
@@ -138,17 +137,19 @@
 </template>
 
 <script>
-
-
 export default {
-  
-  methods: {
-   
-  },
+  methods: {},
   data() {
     return {
-      fid: '',
-      faci: ["기관1", "기관2", "기관3"],
+      fid: "금주어린이집",
+      faci: [
+        "금주어린이집",
+        "기쁨어린이집",
+        "도담어린이집",
+        "독산본동어린이집",
+        "동산어린이집",
+      ],
+      cgroup: 1,
       tags: ["동청사", "어린이집", "보훈단체", "경로당", "건강가정지원센터"],
       headers: [
         {
@@ -197,17 +198,18 @@ export default {
           flex: 6,
         },
       ],
-     
     };
   },
   created() {},
   mounted() {
-    if(this.$route.params.fid){
-this.fid = this.$route.params.fid;
-}
+    if (this.$route.params.fcat) {
+      this.cgroup = this.$route.params.fcat;
+    }
+    if (this.$route.params.fid) {
+      this.fid = this.$route.params.fid;
+    }
   },
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

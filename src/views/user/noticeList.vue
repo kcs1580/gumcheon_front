@@ -25,114 +25,14 @@
           <v-divider style="margin-top: 12px" />
           <v-data-table
             hide-default-header
-            style="margin: 10px 0px; padding: 12px 15px"
+            hide-default-footer
             :headers="headers"
-            :items="articels"
+            :items="articles"
             :items-per-page="5"
           >
           </v-data-table>
         </v-card>
-      </v-col>
-
-      <v-col cols="12">
-        <v-card width="334px" flat>
-          <v-row no-gutters align="center" justify="space-between">
-            <v-col cols="12" style="font-weight: 500; font-size: 18px">
-              시설</v-col
-            >
-            <v-col cols="9" style="margin-bottom: 20px">
-              <v-chip-group active-class="primary--text" column>
-                <v-chip
-                  text-color="black"
-                  outlined
-                  label
-                  color="#0276F9"
-                  v-for="tag in tags"
-                  :key="tag"
-                >
-                  {{ tag }}
-                </v-chip>
-              </v-chip-group>
-            </v-col>
-          </v-row>
-        </v-card>
-        <v-card width="334px" flat>
-          <v-row no-gutters align="center" justify="space-between">
-            <v-col style="font-weight: 500; font-size: 18px">기관명</v-col>
-            <v-col cols="12">
-              <v-select
-                :items="faci"
-                placeholder="기관명을 선택해주세요."
-                dense
-                outlined
-              ></v-select>
-            </v-col>
-          </v-row>
-        </v-card>
-        <v-card width="334px" flat>
-          <v-row no-gutters align="center" justify="space-between">
-            <v-col v style="font-weight: 500; font-size: 18px">전화번호</v-col>
-            <v-col cols="12">
-              <v-text-field
-                :items="faci"
-                placeholder="연락 가능한 번호를 적어주세요."
-                dense
-                outlined
-              ></v-text-field>
-            </v-col>
-          </v-row> </v-card
-        ><v-card width="334px" flat>
-          <v-row no-gutters align="center" justify="space-between">
-            <v-col style="font-weight: 500; font-size: 18px"
-              >불편접수 내용</v-col
-            >
-            <v-col cols="12">
-              <v-textarea
-                :items="faci"
-                placeholder="불편접수 내용을 적어주세요."
-                dense
-                outlined
-                no-resize
-              ></v-textarea>
-            </v-col>
-          </v-row>
-        </v-card>
-        <v-card width="334px" flat>
-          <v-row no-gutters align="center" justify="space-between">
-            <v-col style="font-weight: 500; font-size: 18px">사진 첨부</v-col>
-            <v-col cols="12">
-              <v-text-field
-                :items="faci"
-                placeholder="53mb 이하의 파일만 가능합니다."
-                dense
-                outlined
-              ></v-text-field>
-              <v-file-input></v-file-input>
-            </v-col>
-          </v-row>
-          <div
-            style="
-              font-size: 13px;
-              line-height: 19px;
-              letter-spacing: -0.06em;
-              color: #6c6c6c;
-              margin-bottom: 60px;
-              margin-top: 99px;
-            "
-          >
-            상황에 따라 기한 또는 인원이 변경 될 수 있으며, 자세한 내용
-            파악을<br />
-            위해 담당자가 연락을 취할 수 있습니다. 감사합니다.
-          </div>
-          <v-btn
-            style="border-radius: 12px; font-size: 22px; margin-bottom: 11px"
-            class="white--text"
-            color="#0276F9"
-            width="334px"
-            height="54px"
-            >접수하기</v-btn
-          >
-        </v-card>
+        <v-pagination v-model="page" :length="3"></v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -143,17 +43,50 @@ import communityApi from "@/api/community.js";
 export default {
   data() {
     return {
+      page: 1,
+      headers: [
+        {
+          text: "title",
+          align: "start",
+          sortable: false,
+          value: "title",
+        },
+        {
+          text: "regDate",
+          align: "end",
+          sortable: false,
+          value: "regDate",
+        },
+      ],
+      articles: [
+        {
+          title: "2022 공공안전 사업 계획",
+          regDate: "2021.12.25",
+        },
+        {
+          title: "금천구시설관리공단 접수지연 안내",
+          regDate: "2021.12.25",
+        },
+        {
+          title: "불편접수 전 확인해주세요",
+          regDate: "2021.12.25",
+        },
+        {
+          title: "2022 공공안전 사업 계획",
+          regDate: "2021.12.25",
+        },
+        {
+          title: "2022 공공안전 사업 계획",
+          regDate: "2021.12.25",
+        },
+      ],
       // ..
       dlRead: false,
-      articles: [],
       article: {
         title: "",
-        contetn: "",
+        content: "",
       },
-      headers: [
-        { text: "제목", value: "title" },
-        { text: "게시일", value: "regdate" },
-      ],
+
       loading: false,
       // ..
     };
@@ -200,9 +133,7 @@ export default {
       this.communityDetail(value.idx);
     },
   },
-  created() {
-    this.list();
-  },
+  created() {},
 };
 </script>
 
