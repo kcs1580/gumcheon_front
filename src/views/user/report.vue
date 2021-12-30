@@ -201,14 +201,7 @@ export default {
     };
   },
   created() {},
-  mounted() {
-    if (this.$route.params.fcat) {
-      this.cgroup = this.$route.params.fcat;
-    }
-    if (this.$route.params.fid) {
-      this.fid = this.$route.params.fid;
-    }
-  },
+  mounted() {},
 };
 </script>
 

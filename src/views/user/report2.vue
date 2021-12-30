@@ -1,6 +1,5 @@
 <!--사용자 불편접수 신청 페이지 -->
 
-
 <template>
   <v-container fluid height>
     <v-row no-gutters align="center" justify="center">
@@ -50,7 +49,7 @@
                 >
                   {{ tag }}
                 </v-chip> -->
-                <v-chip>{{fid}}</v-chip>
+                <v-chip>{{ fid }}</v-chip>
               </v-chip-group>
             </v-col>
           </v-row>
@@ -138,16 +137,11 @@
 </template>
 
 <script>
-
-
 export default {
-  
-  methods: {
-   
-  },
+  methods: {},
   data() {
     return {
-      fid: '',
+      fid: "",
       faci: ["기관1", "기관2", "기관3"],
       tags: ["동청사", "어린이집", "보훈단체", "경로당", "건강가정지원센터"],
       headers: [
@@ -197,16 +191,11 @@ export default {
           flex: 6,
         },
       ],
-     
     };
   },
   created() {},
-  mounted() {
-this.fid = this.$route.params.fid;
-
-  },
+  mounted() {},
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
