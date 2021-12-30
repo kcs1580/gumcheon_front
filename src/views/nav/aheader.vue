@@ -142,7 +142,7 @@ export default {
         {
           title: "시설물관리",
           link: "/",
-          items: [{ title: "시설물관리" }, { title: "시설물관리2" }],
+          items: [{ title: "시설물관리" }],
         },
         {
           title: "게시물관리",
@@ -156,7 +156,7 @@ export default {
         {
           title: "접수/처리",
           link: "/",
-          items: [{ title: "접수대기 및 현황" }, { title: "처리대기 및 현황" }],
+          items: [{ title: "접수/처리 현황" }],
         },
         {
           title: "보고서",
