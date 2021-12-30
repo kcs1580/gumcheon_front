@@ -1,6 +1,5 @@
 <!-- 사용자 메인 페이지 -->
 
-
 <template>
   <v-container fluid height>
     <v-row no-gutters align="center" justify="center">
@@ -42,6 +41,7 @@
             width="334px"
             color="#0276F9"
             height="54px"
+            @click="gotoUrl('/dashboard')"
             >접수 및 처리현황</v-btn
           >
           <v-btn
@@ -167,5 +167,4 @@ export default {
   border-radius: 12px;
   font-size: 18px;
 }
-
 </style>

@@ -65,7 +65,7 @@
           v-for="(item, i) in menus"
           :key="i"
         >
-          <v-list-item-title> </v-list-item-title>
+          <v-list-item-title>{{ item.title }} </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -97,7 +97,7 @@ export default {
       menus: [
         { title: "불편접수", link: "/report" },
         { title: "내 정보관리", link: "/user" },
-        { title: "접수 및 처리 현황", link: "/user" },
+        { title: "접수 및 처리 현황", link: "/dashboard" },
         { title: "공지사항", link: "/notice" },
       ],
     };

@@ -18,6 +18,8 @@ const noticeList = () => import("@/views/user/noticeList.vue");
 const noticeDetail = () => import("@/views/user/noticeDetail.vue");
 //사용자 페이지 불편접수
 const report = () => import("@/views/user/report.vue");
+//사용자 페이지 접수현황
+const dashboard = () => import("@/views/user/dashboard.vue");
 
 //업무용 페이지 메인
 const amain = () => import("@/views/admin/amain.vue");
@@ -120,6 +122,7 @@ const routes = [
           },
         ],
       },
+      { path: "/dashboard", component: dashboard, name: "dashboard" },
     ],
   },
   {
